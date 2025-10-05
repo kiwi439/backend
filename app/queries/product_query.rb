@@ -18,15 +18,16 @@ class ProductQuery
   private
 
   def set_initial_products_scope
-    return Product.promoted if @params.fetch(:promoted)
+    return Product.promoted if @params[:promoted]
 
     Product.all
   end
 
   def filter_by_type_if_needed
-    return unless @params.fetch(:type)
+    type = @params[:type]
+    return unless type
 
-    @products = Product.from_type(@params.fetch(:type).underscore)
+    @products = @products.from_type(type.underscore)
   end
 
   def filter_by_availability
@@ -40,6 +41,7 @@ class ProductQuery
   def paginate
     page = @params.dig(:pagination, :page)
     quantity_per_page = @params.dig(:pagination, :quantity_per_page)
+    return unless page && quantity_per_page
 
     @products = @products.limit(quantity_per_page).offset(page * quantity_per_page)
   end
