@@ -1,7 +1,7 @@
 module Services
   class LoggerService
     def initialize(file_name:)
-      @logger = Logger.new(Rails.root.join('log', file_name))
+      @logger = Logger.new(Rails.root.join('log', file_name)) # TODO: To moze być path_name a nie file_name
     end
 
     def warn(message:)

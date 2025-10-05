@@ -26,10 +26,22 @@ module Services
 
         { logs: logs, body_response: body_response }
       rescue StandardError => e
+        ::Services::LoggerService.new(file_name: file_name).error(message: "#{@function_name} error occured!\n\
+                                                                            Error message: #{e.message}\n\
+                                                                            Error backtrace:\n#{e.backtrace.first(3).join("\n")}\n")
+        Rollbar.error(error)
         raise PerformingLambdaFunctionError.new(message: e, context_data: { function_name: @function_name,
                                                                             invocation_type: @invocation_type,
                                                                             log_type: @log_type,
                                                                             payload: @payload.to_json })
+      end
+
+      private
+
+      def file_name
+        log_dir = Rails.root.join('log', 'lambda')
+        FileUtils.mkdir_p(log_dir) unless Dir.exist?(log_dir)
+        "lambda/#{@function_name.underscore}.log"
       end
     end
   end
