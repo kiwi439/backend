@@ -21,10 +21,9 @@ describe Services::Aws::LambdaService, type: :service do
     context 'when Lambda function succeeds' do
       let(:mock_response) do
         instance_double(Aws::Lambda::Types::InvocationResponse,
-          log_result: Base64.encode64('Test logs'),
-          payload: StringIO.new('{"result": "success"}'),
-          function_error: nil
-        )
+                        log_result: Base64.encode64('Test logs'),
+                        payload: StringIO.new('{"result": "success"}'),
+                        function_error: nil)
       end
 
       before do
@@ -45,10 +44,9 @@ describe Services::Aws::LambdaService, type: :service do
     context 'when Lambda function fails' do
       let(:error_response) do
         instance_double(Aws::Lambda::Types::InvocationResponse,
-          log_result: Base64.encode64('Error logs'),
-          payload: StringIO.new('{"errorMessage": "Test error", "errorType": "RuntimeError"}'),
-          function_error: 'Unhandled'
-        )
+                        log_result: Base64.encode64('Error logs'),
+                        payload: StringIO.new('{"errorMessage": "Test error", "errorType": "RuntimeError"}'),
+                        function_error: 'Unhandled')
       end
 
       before do

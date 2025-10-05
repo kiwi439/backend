@@ -6,7 +6,6 @@ describe Users::Registration::ValidateAvatarService, type: :service do
 
     let(:avatar_as_base64) { 'decoded_base64_image_data' }
 
-
     context 'when Lambda detects a face in avatar' do
       let(:lambda_response) { { body_response: true } }
 
