@@ -17,19 +17,21 @@ class OrderQuery
   private
 
   def filter_by_membership_to_user_if_need
-    return unless @params.fetch(:user_id)
+    user_id = @params[:user_id]
+    return unless user_id
 
-    @orders = User.find(@params.fetch(:user_id)).orders
+    @orders = User.find(user_id).orders
   end
 
   def paginate
     page = @params.dig(:pagination, :page)
     quantity_per_page = @params.dig(:pagination, :quantity_per_page)
+    return unless page && quantity_per_page
 
     @orders = @orders.limit(quantity_per_page).offset(page * quantity_per_page)
   end
 
   def sort_by_creation_date
-    @orders.sort_by(&:created_at).reverse
+    @orders = @orders.order(created_at: :desc)
   end
 end
