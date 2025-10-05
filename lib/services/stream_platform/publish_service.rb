@@ -6,7 +6,6 @@ module Services
       PublishOnStreamPlatformError = Class.new(Errors::RollbarError)
 
       def initialize(topic:, payload:, log_file_name:)
-        super()
         @topic = topic
         @payload = payload
         @producer = setup_producer(log_file_name: log_file_name)
