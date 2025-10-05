@@ -29,7 +29,7 @@ module Services
         ::Services::LoggerService.new(file_name: file_name).error(message: "#{@function_name} error occured!\n\
                                                                             Error message: #{e.message}\n\
                                                                             Error backtrace:\n#{e.backtrace.first(3).join("\n")}\n")
-        Rollbar.error(error)
+        Rollbar.error(e)
         raise PerformingLambdaFunctionError.new(message: e, context_data: { function_name: @function_name,
                                                                             invocation_type: @invocation_type,
                                                                             log_type: @log_type,
