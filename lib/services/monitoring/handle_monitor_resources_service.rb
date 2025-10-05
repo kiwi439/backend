@@ -8,7 +8,6 @@ module Services
       LOG_FILE_NAME = 'monitoring_system.log'.freeze
 
       def initialize(params:)
-        super()
         @params = params
       end
 

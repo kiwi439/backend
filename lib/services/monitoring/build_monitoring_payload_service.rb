@@ -7,7 +7,6 @@ module Services
       BuildMonitorResourcePayloadError = Class.new(Errors::RollbarError)
 
       def initialize(params:)
-        super()
         @params = params
       end
 
