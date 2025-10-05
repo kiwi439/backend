@@ -24,7 +24,7 @@ module Services
         producer = WaterDrop::Producer.new
         producer.setup do |config|
           config.deliver = true
-          config.logger = ::Services::LoggerService.new(file_name: log_file_name)
+          config.logger = ::Services::LoggerService.new(log_path: log_file_name)
           config.kafka = { 'bootstrap.servers': 'kafka:9092',
                            'request.required.acks': 'all',
                            'enable.idempotence': true }

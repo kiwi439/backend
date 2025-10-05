@@ -54,7 +54,7 @@ describe Services::Aws::LambdaService, type: :service do
       end
 
       it 'logs error to file' do
-        expect(Services::LoggerService).to receive(:new).with(file_name: 'lambda/test_function.log')
+        expect(Services::LoggerService).to receive(:new).with(log_path: 'lambda/test_function.log')
         expect(logger_service).to receive(:error).with(message: include('TestFunction error occured!'))
         expect { subject }.to raise_error(Services::Aws::LambdaService::PerformingLambdaFunctionError)
       end
@@ -75,7 +75,7 @@ describe Services::Aws::LambdaService, type: :service do
       end
 
       it 'logs error to file' do
-        expect(Services::LoggerService).to receive(:new).with(file_name: 'lambda/test_function.log')
+        expect(Services::LoggerService).to receive(:new).with(log_path: 'lambda/test_function.log')
         expect(logger_service).to receive(:error).with(message: include('TestFunction error occured!'))
         expect { subject }.to raise_error(Services::Aws::LambdaService::PerformingLambdaFunctionError)
       end

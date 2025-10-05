@@ -26,7 +26,7 @@ module Services
 
         { logs: logs, body_response: body_response }
       rescue StandardError => e
-        ::Services::LoggerService.new(file_name: file_name).error(message: "#{@function_name} error occured!\n\
+        ::Services::LoggerService.new(log_path: file_name).error(message: "#{@function_name} error occured!\n\
                                                                             Error message: #{e.message}\n\
                                                                             Error backtrace:\n#{e.backtrace.first(3).join("\n")}\n")
         Rollbar.error(e)
