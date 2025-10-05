@@ -15,6 +15,7 @@ module Orders
 
     private
 
+    #? TODO: What the fuck is this?
     def load_order(order:)
       Order.preload(products_orders: [:product]).find(order.id)
     end

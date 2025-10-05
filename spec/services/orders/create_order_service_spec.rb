@@ -1,5 +1,3 @@
-require 'rails_helper'
-
 describe Orders::CreateOrderService, type: :service do
   describe '#call' do
     subject { described_class.call(params: params) }
@@ -7,6 +5,8 @@ describe Orders::CreateOrderService, type: :service do
     let(:user) { create(:user) }
     let(:product) { create(:product, available_quantity: 10) }
     let(:product2) { create(:product, available_quantity: 5) }
+    let(:message_delivery) { instance_double(ActionMailer::MessageDelivery) }
+
     let(:params) do
       {
         name: 'John',
@@ -27,8 +27,6 @@ describe Orders::CreateOrderService, type: :service do
         ]
       }
     end
-
-    let(:message_delivery) { instance_double(ActionMailer::MessageDelivery) }
 
     before do
       allow(Orders::UploadInvoiceToStorageService).to receive(:call).and_return(true)
@@ -78,8 +76,8 @@ describe Orders::CreateOrderService, type: :service do
       end
     end
 
-    context 'when order creation fails' do
-      before { params[:phone_number] = 'invalid'}
+    context 'when order creation fails due to validation' do
+      before { params[:phone_number] = 'invalid' }
 
       it 'raises validation error' do
         expect { subject }.to raise_error(ActiveRecord::RecordInvalid)
@@ -121,6 +119,47 @@ describe Orders::CreateOrderService, type: :service do
 
       it 'product quantity is still updated' do
         expect { subject rescue nil }.to change { product.reload.available_quantity }.from(10).to(7)
+      end
+    end
+
+    context 'when transaction rollback occurs' do
+      context 'when order validation fails during save' do
+        let(:params) do
+          {
+            name: 'John',
+            surname: 'Doe',
+            phone_number: '123456789',
+            street: 'Main Street',
+            city: 'Warsaw',
+            postal_code: '00-001',
+            delivery_method: 'in_post',
+            payment_method: 'cash_payment',
+            email: 'john.doe@example.com',
+            user: user,
+            products_order: [
+              {
+                product_id: product.id,
+                product_quantity: product.available_quantity + 1
+              }
+            ]
+          }
+        end
+
+        it 'does not create order' do
+          expect { subject rescue nil }.not_to change { Order.count }
+        end
+
+        it 'does not create products_orders' do
+          expect { subject rescue nil }.not_to change { ProductsOrder.count }
+        end
+
+        it 'does not update product quantities' do
+          expect { subject rescue nil }.not_to change { product.reload.available_quantity }
+        end
+
+        it 'raises validation error' do
+          expect { subject }.to raise_error(ActiveRecord::RecordInvalid)
+        end
       end
     end
   end
