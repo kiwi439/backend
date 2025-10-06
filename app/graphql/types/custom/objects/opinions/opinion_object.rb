@@ -9,7 +9,7 @@ module Types
           field :content, String, null: false
           field :mark, Integer, null: false
           field :updated_at, GraphQL::Types::ISO8601DateTime, null: false
-          field :user, Types::Custom::Objects::Users::UserObject, null: false
+          field :user, Types::Objects::User::User, null: false
         end
       end
     end
