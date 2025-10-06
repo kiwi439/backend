@@ -49,6 +49,7 @@ jobs:
     uses: michal-siwiec/system-tests/.github/workflows/shop_e2e_tests.yml@develop
     with:
       budoman-backend_branch: ${{ github.ref_name }}
+      budoman-frontend_branch: feature/graphql-refactor # TODO: Remove this before merge
     secrets:
       BUDOMAN_FRONTEND_AWS_ACCESS_KEY_ID: ${{ secrets.BUDOMAN_FRONTEND_AWS_ACCESS_KEY_ID }}
       BUDOMAN_FRONTEND_AWS_SECRET_ACCESS_KEY: ${{ secrets.BUDOMAN_FRONTEND_AWS_SECRET_ACCESS_KEY }}
