@@ -4,8 +4,8 @@ module Types
   module Objects
     module Opinion
       class Opinion < Types::BaseObject
-        field :id, ID, null: false
         field :content, String, null: false
+        field :id, ID, null: false
         field :mark, Integer, null: false
         field :updated_at, GraphQL::Types::ISO8601DateTime, null: false
         field :user, Types::Objects::User::User, null: false
@@ -13,4 +13,3 @@ module Types
     end
   end
 end
-

@@ -5,12 +5,11 @@ module Types
     module Mutation
       module User
         class RegisterUserInput < Types::BaseInputObject
+          argument :avatars, [RegisterAvatarInput], required: true
           argument :email, String, required: true
           argument :password, String, required: true
-          argument :avatars, [RegisterAvatarInput], required: true
         end
       end
     end
   end
 end
-
