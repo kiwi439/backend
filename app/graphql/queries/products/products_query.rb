@@ -4,7 +4,7 @@ module Queries
   module Products
     class ProductsQuery < BaseQuery
       argument :input, Types::Custom::Inputs::Filtrations::Products::ProductInput, required: false
-      type Types::Custom::Objects::Products::ProductsObject, null: false
+      type Types::Objects::Product::Products, null: false
 
       def resolve(params)
         response = ProductQuery.new(params).call
