@@ -4,11 +4,12 @@ module Types
   module Custom
     module Objects
       module Orders
-        class OrderWithAllQuantityObject < Types::BaseObject
+        class OrdersResult < Types::BaseObject
           field :orders, [Types::Custom::Objects::Orders::OrderObject], null: false
-          field :all_orders_quantity, Integer, null: false
+          field :total_count, Integer, null: false
         end
       end
     end
   end
 end
+
