@@ -3,7 +3,7 @@
 module Queries
   module Opinions
     class OpinionsQuery < BaseQuery
-      argument :input, Types::Custom::Inputs::Filtrations::Opinions::OpinionInput, required: false
+      argument :input, Types::Inputs::Query::OpinionInput, required: false
       type Types::Objects::Opinion::Opinions, null: false
 
       def resolve(params)

@@ -3,7 +3,7 @@
 module Mutations
   module Users
     class UpdateUserMutation < Mutations::BaseMutation
-      argument :input, Types::Custom::Inputs::Mutations::Users::UpdateUserInput, required: true
+      argument :input, Types::Inputs::Mutation::User::UpdateUserInput, required: true
       type Types::Objects::User::User
 
       def resolve(params)

@@ -3,7 +3,7 @@
 module Queries
   module Orders
     class OrdersQuery < BaseQuery
-      argument :input, Types::Custom::Inputs::Filtrations::Orders::OrdersInput, required: false
+      argument :input, Types::Inputs::Query::OrdersInput, required: false
       type Types::Objects::Order::Orders, null: false
 
       def resolve(params)
