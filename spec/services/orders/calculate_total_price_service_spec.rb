@@ -39,6 +39,7 @@ describe Orders::CalculateTotalPriceService, type: :service do
       before do
         order.products_orders.destroy_all
         create(:products_order, order: order, product: product1, product_quantity: 1)
+        order.reload
       end
 
       it 'returns correct total price' do
@@ -62,6 +63,7 @@ describe Orders::CalculateTotalPriceService, type: :service do
         order.products_orders.destroy_all
         create(:products_order, order: order, product: product1, product_quantity: 3)
         create(:products_order, order: order, product: product2, product_quantity: 2)
+        order.reload
       end
 
       it 'rounds result to 2 decimal places' do
