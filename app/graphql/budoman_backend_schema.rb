@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
-class OlxBackendSchema < GraphQL::Schema
+class BudomanBackendSchema < GraphQL::Schema
   mutation(Types::MutationType)
   query(Types::QueryType)
 end
+

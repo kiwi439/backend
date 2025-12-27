@@ -7,7 +7,7 @@ module Graphql
     end
 
     def call
-      result = OlxBackendSchema.execute(@context.fetch(:query),
+      result = BudomanBackendSchema.execute(@context.fetch(:query),
                                variables: @context.fetch(:variables),
                                context: @context.fetch(:context),
                                operation_name: @context.fetch(:operation_name))
