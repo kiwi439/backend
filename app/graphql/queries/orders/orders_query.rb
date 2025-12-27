@@ -4,7 +4,7 @@ module Queries
   module Orders
     class OrdersQuery < BaseQuery
       argument :input, Types::Custom::Inputs::Filtrations::Orders::OrdersInput, required: false
-      type Types::Custom::Objects::Orders::OrdersResult, null: false
+      type Types::Custom::Objects::Orders::OrdersObject, null: false
 
       def resolve(params)
         response = OrderQuery.new(params).call

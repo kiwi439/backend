@@ -4,7 +4,7 @@ module Types
   module Custom
     module Objects
       module Orders
-        class OrdersResult < Types::BaseObject
+        class OrdersObject < Types::BaseObject
           field :orders, [Types::Custom::Objects::Orders::OrderObject], null: false
           field :total_count, Integer, null: false
         end
