@@ -4,12 +4,12 @@ module Queries
   module Opinions
     class OpinionsQuery < BaseQuery
       argument :input, Types::Custom::Inputs::Filtrations::Opinions::OpinionInput, required: false
-      type Types::Custom::Objects::Opinions::OpinionsWithAllQuantityObject, null: false
+      type Types::Custom::Objects::Opinions::OpinionsObject, null: false
 
       def resolve(params)
         {
           opinions: OpinionQuery.new(params).call,
-          all_opinions_quantity: Opinion.count
+          total_count: Opinion.count
         }
       end
     end
