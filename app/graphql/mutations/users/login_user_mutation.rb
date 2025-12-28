@@ -3,12 +3,12 @@
 module Mutations
   module Users
     class LoginUserMutation < Mutations::BaseMutation
-      argument :input, Types::Custom::Inputs::Mutations::Users::LoginUserInput, required: true
-      type Types::Custom::Objects::Users::UserObject
+      argument :input, Types::Inputs::Mutation::User::LoginUserInput, required: true
+      type Types::Objects::User::User
 
       def resolve(params)
         super(params)
-        ::Users::HandleLoginUserService.call(params: @params, session: context.fetch(:session))
+        ::Users::LoginUserService.call(params: @params, session: context.fetch(:session))
       end
     end
   end

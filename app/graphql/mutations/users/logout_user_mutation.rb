@@ -3,12 +3,13 @@
 module Mutations
   module Users
     class LogoutUserMutation < Mutations::BaseMutation
-      argument :input, Types::Custom::Inputs::Mutations::Users::LogoutUserInput, required: true
-      type Types::Custom::Objects::Users::UserObject
+      argument :input, Types::Inputs::Mutation::User::LogoutUserInput, required: true
+      type Types::Objects::User::User
 
       def resolve(params)
         super(params)
-        ::Users::HandleLogoutUserService.call(params: @params, session: context.fetch(:session))
+        ::Session::UserSessionService.new(session: context.fetch(:session)).logout
+        User.find_by(@params)
       end
     end
   end

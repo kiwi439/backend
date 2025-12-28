@@ -3,12 +3,12 @@
 module Mutations
   module Orders
     class AddOrderMutation < Mutations::BaseMutation
-      argument :input, Types::Custom::Inputs::Mutations::Orders::AddOrderInput, required: true
-      type Types::Custom::Objects::Orders::OrderObject
+      argument :input, Types::Inputs::Mutation::Order::AddOrderInput, required: true
+      type Types::Objects::Order::Order
 
       def resolve(params)
         super(params)
-        ::Orders::HandleAddOrderService.call(params: @params)
+        ::Orders::CreateOrderService.call(params: @params)
       end
     end
   end

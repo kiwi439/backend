@@ -17,6 +17,7 @@ class OpinionQuery
   def paginate
     page = @params.dig(:pagination, :page)
     quantity_per_page = @params.dig(:pagination, :quantity_per_page)
+    return unless page && quantity_per_page
 
     @opinions = @opinions.limit(quantity_per_page).offset(page * quantity_per_page)
   end

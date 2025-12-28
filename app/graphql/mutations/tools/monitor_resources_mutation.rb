@@ -3,7 +3,7 @@
 module Mutations
   module Tools
     class MonitorResourcesMutation < Mutations::BaseMutation
-      argument :input, Types::Custom::Inputs::Mutations::Tools::MonitorResourcesInput, required: true
+      argument :input, Types::Inputs::Mutation::Tool::MonitorResourcesInput, required: true
       type Boolean
 
       def resolve(params)

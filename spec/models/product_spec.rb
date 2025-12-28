@@ -1,4 +1,14 @@
 describe Product, type: :model do
+  subject do
+    described_class.new(
+      name: 'Stairway',
+      price: 19.99,
+      available_quantity: 10,
+      picture_key: 'images/products/roof_ accessories/grzebien_okapowy_z_kratka_wentylacyjna.jpeg',
+      picture_bucket: 'budoman-development',
+      product_category: build(:product_category)
+    )
+  end
   describe 'scopes' do
     describe '.promoted' do
       subject { described_class.promoted }
@@ -31,16 +41,16 @@ describe Product, type: :model do
   end
 
   describe 'associations' do
-    it { should belong_to(:product_category) }
-    it { should have_many(:products_orders) }
+    it { is_expected.to belong_to(:product_category) }
+    it { is_expected.to have_many(:products_orders) }
   end
 
   describe 'validations' do
-    it { should validate_presence_of(:name) }
-    it { should validate_presence_of(:picture_key) }
-    it { should validate_presence_of(:picture_bucket) }
+    it { is_expected.to validate_presence_of(:name) }
+    it { is_expected.to validate_presence_of(:picture_key) }
+    it { is_expected.to validate_presence_of(:picture_bucket) }
 
-    it { should validate_numericality_of(:price) }
-    it { should validate_numericality_of(:available_quantity).only_integer }
+    it { is_expected.to validate_numericality_of(:price) }
+    it { is_expected.to validate_numericality_of(:available_quantity).only_integer }
   end
 end

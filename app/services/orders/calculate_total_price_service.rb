@@ -3,7 +3,7 @@ module Orders
     extend Utils::CallableObject
 
     def initialize(order:)
-      @order = load_order(order: order)
+      @order = order
     end
 
     def call
@@ -14,10 +14,6 @@ module Orders
     end
 
     private
-
-    def load_order(order:)
-      Order.preload(products_orders: [:product]).find(order.id)
-    end
 
     def calculate_products_price
       @order.products_orders.map { |product_order| product_order.product_quantity * product_order.product.price }.sum.round(2)

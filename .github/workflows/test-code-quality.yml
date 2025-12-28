@@ -12,6 +12,8 @@ jobs:
       DATABASE_USER_NAME: postgres
       DATABASE_PASSWORD: postgres
       RAILS_ENV: test
+      AWS_ACCESS_KEY_ID: ${{ secrets.BUDOMAN_BACKEND_AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.BUDOMAN_BACKEND_AWS_SECRET_ACCESS_KEY }}
     services:
       postgres:
         image: postgres

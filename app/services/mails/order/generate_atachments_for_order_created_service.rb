@@ -1,8 +1,9 @@
 module Mails
   module Order
-    class GenerateAtachmentsForOrderCreatedService < BaseService
+    class GenerateAtachmentsForOrderCreatedService
+      extend Utils::CallableObject
+
       def initialize(order:)
-        super()
         @order = order
       end
 

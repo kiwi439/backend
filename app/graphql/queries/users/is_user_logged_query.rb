@@ -3,10 +3,10 @@
 module Queries
   module Users
     class IsUserLoggedQuery < BaseQuery
-      type Types::Custom::Objects::Users::IsUserLoggedObject, null: false
+      type Types::Objects::User::User, null: true
 
       def resolve
-        { user_id: context.fetch(:current_user)&.id }
+        context.fetch(:current_user)
       end
     end
   end

@@ -31,7 +31,7 @@ module Graphql
       when Hash
         variables_to_process
       when ActionController::Parameters
-        variables_to_process.to_unsafe_hash # GraphQL-Ruby will validate name and type of incoming variables.
+        variables_to_process.to_unsafe_hash
       when nil
         {}
       else
@@ -40,7 +40,7 @@ module Graphql
     end
 
     def current_user
-      ::Users::SessionUserService.new(session: @session).current_user
+      ::Session::UserSessionService.new(session: @session).current_user
     end
   end
 end

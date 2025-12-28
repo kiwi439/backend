@@ -3,12 +3,15 @@
 module Mutations
   module Users
     class UpdateUserMutation < Mutations::BaseMutation
-      argument :input, Types::Custom::Inputs::Mutations::Users::UpdateUserInput, required: true
-      type Types::Custom::Objects::Users::UserObject
+      argument :input, Types::Inputs::Mutation::User::UpdateUserInput, required: true
+      type Types::Objects::User::User
 
       def resolve(params)
         super(params)
-        ::Users::UpdateUserService.call(params: @params)
+
+        user = User.find(@params.fetch(:user_id))
+        user.update!(@params.except(:user_id))
+        user
       end
     end
   end

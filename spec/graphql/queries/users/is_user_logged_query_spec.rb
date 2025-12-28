@@ -6,7 +6,7 @@ describe Queries::Users::IsUserLoggedQuery, type: :request do
       <<~GQL
         query {
           isUserLogged {
-            userId
+            id
           }
         }
       GQL
@@ -19,7 +19,7 @@ describe Queries::Users::IsUserLoggedQuery, type: :request do
     end
 
     it 'returns proper response' do
-      expected_response = { data: { isUserLogged: { userId: nil } } }
+      expected_response = { data: { isUserLogged: nil }}
 
       expect(parse_request_body).to eq(expected_response)
     end
