@@ -2,7 +2,6 @@ module Services
   module Monitoring
     class BuildMonitoringPayloadService
       extend Utils::CallableObject
-      include Utils::ParamsParser
 
       BuildMonitorResourcePayloadError = Class.new(Errors::RollbarError)
 
@@ -34,6 +33,15 @@ module Services
         raise BuildMonitorResourcePayloadError.new(message: e, context_data: { params: @params.to_json })
       end
       # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
+
+      private
+
+      def convert_string_to_hash(string:)
+        string.split
+              .map { |s| s.split(':') }
+              .to_h
+              .symbolize_keys
+      end
     end
   end
 end
