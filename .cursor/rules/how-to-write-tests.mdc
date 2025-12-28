@@ -1,0 +1,29 @@
+---
+alwaysApply: true
+---
+
+# Zasady pisania testów (RSpec)
+- Po wygenerowaniu/zmianie testów uruchom je i upewnij się, że przechodzą.
+- Nie generuj zbyt wielu kontekstów sprawdzających to samo
+- Uzywaj zdefiniowanych helperów wewnątrz "spec/support".
+
+## Struktura
+- Używaj `describe` dla metody/akcji (np. `describe "#call"` lub `describe "GET /orders"`).
+- Używaj `context` dla scenariuszy (np. "success path", "failure path").
+
+## subject
+- Definiuj `subject` wewnątrz `describe`:
+  - service: `subject { described_class.new(...).call }`
+  - request: `subject { get :show, params: params }`
+
+## Asercje i statusy
+- W request specs używaj `have_http_status(:not_found)` zamiast porównywania do 404.
+
+## Doubles / mocki
+- Używaj `instance_double` zamiast luźnych `double` czy `spy`.
+- Unikaj `allow_any_instance_of`. Jeśli to konieczne, uzasadnij w komentarzu.
+- Unikaj `receive_message_chain`. Jeśli to konieczne, uzasadnij w komentarzu.
+
+## Anty-wzorce
+- Nie pisz testów do prywatnych metod.
+- Testuj zachowanie/kontrakt, nie implementację.
