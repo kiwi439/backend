@@ -7,7 +7,7 @@ module Types
 
     field :products,
           resolver: Queries::Products::ProductsQuery,
-          description: 'Returns array of products. Possible passing filtering variables, among others: promoted'
+          description: 'Returns products connection. Supports filtering by promoted and type. Uses Relay Connections for pagination (first/after, last/before)'
 
     field :is_user_logged,
           resolver: Queries::Users::IsUserLoggedQuery,
