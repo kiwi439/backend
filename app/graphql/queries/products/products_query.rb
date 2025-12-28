@@ -3,7 +3,7 @@
 module Queries
   module Products
     class ProductsQuery < BaseQuery
-      type Types::BaseConnection.connection_type, null: false
+      type Types::Objects::Product.connection_type, null: false
 
       argument :promoted, Boolean, required: false, description: 'Filter by promoted products'
       argument :type, String, required: false, description: 'Filter by product type'

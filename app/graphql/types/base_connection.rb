@@ -7,7 +7,7 @@ module Types
     field :total_count, Integer, null: false, description: 'Total number of items before pagination'
 
     def total_count
-      object.items.unscope(:limit, :offset).count
+      object.items.except(:limit, :offset).count
     end
   end
 end
