@@ -6,7 +6,7 @@ module Types
     include GraphQL::Types::Relay::HasNodesField
 
     field :products,
-          resolver: Queries::Products::ProductsQuery,
+          resolver: Queries::ProductsQuery,
           description: 'Returns products connection. Supports filtering by promoted and type. Uses Relay Connections for pagination (first/after, last/before)'
 
     field :is_user_logged,
