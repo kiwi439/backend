@@ -17,10 +17,6 @@ module Types
           resolver: Queries::Users::UserQuery,
           description: 'Returns user'
 
-    field :products_categories,
-          resolver: Queries::ProductCategories::ProductCategoriesQuery,
-          description: 'Returns array fo products categories'
-
     field :opinions,
           resolver: Queries::Opinions::OpinionsQuery,
           description: 'Returns array of opinions'
