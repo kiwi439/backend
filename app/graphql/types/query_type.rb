@@ -18,8 +18,8 @@ module Types
           description: 'Returns user'
 
     field :opinions,
-          resolver: Queries::Opinions::OpinionsQuery,
-          description: 'Returns array of opinions'
+          resolver: Queries::OpinionsQuery,
+          description: 'Returns opinions connection. Uses Relay Connections for pagination (first/after, last/before)'
 
     field :orders,
           resolver: Queries::Orders::OrdersQuery,
