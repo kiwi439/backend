@@ -19,7 +19,7 @@ module Types
           description: 'Save user to newsletter'
 
     field :unsubscribe_user_from_newsletter,
-          mutation: Mutations::Newsletter::UnsubscribeUserFromNewsletterMutation,
+          mutation: Mutations::Newsletter::Destroy,
           description: 'Remove user from newsletter'
 
     field :update_user,

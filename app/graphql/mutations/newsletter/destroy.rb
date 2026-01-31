@@ -2,7 +2,7 @@
 
 module Mutations
   module Newsletter
-    class UnsubscribeUserFromNewsletterMutation < GraphQL::Schema::Mutation
+    class Destroy < GraphQL::Schema::Mutation
       argument :email, String, required: true
       type Types::Objects::Newsletter::Newsletter, null: true
 
