@@ -528,7 +528,7 @@ Style/StringLiterals:
 Style/SuperArguments:
   Exclude:
     - 'app/graphql/mutations/newsletter/create.rb'
-    - 'app/graphql/mutations/opinions/add_opinion_mutation.rb'
+    - 'app/graphql/mutations/opinions/create_mutation.rb'
     - 'app/graphql/mutations/orders/add_order_mutation.rb'
     - 'app/graphql/mutations/tools/monitor_resources_mutation.rb'
     - 'app/graphql/mutations/users/login_user_mutation.rb'

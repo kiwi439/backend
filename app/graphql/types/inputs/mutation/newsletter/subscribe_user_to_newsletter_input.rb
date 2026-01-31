@@ -13,3 +13,5 @@ module Types
     end
   end
 end
+
+# TODO: Teraz folder mutation jest chyba bez sensu. Mozna odrazu zrobic np CreateInput

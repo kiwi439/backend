@@ -31,7 +31,7 @@ module Types
           description: "Remove user's account"
 
     field :add_opinion,
-          mutation: Mutations::Opinions::AddOpinionMutation,
+          mutation: Mutations::Opinions::CreateMutation,
           description: "Add user's opinion"
 
     field :add_order,
