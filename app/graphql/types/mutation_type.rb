@@ -3,15 +3,15 @@
 module Types
   class MutationType < Types::BaseObject
     field :register_user,
-          mutation: Mutations::Users::RegisterUserMutation,
+          mutation: Mutations::Users::RegisterMutation,
           description: 'Register user'
 
     field :login_user,
-          mutation: Mutations::Users::LoginUserMutation,
+          mutation: Mutations::Users::LoginMutation,
           description: 'Login user'
 
     field :logout_user,
-          mutation: Mutations::Users::LogoutUserMutation,
+          mutation: Mutations::Users::LogoutMutation,
           description: 'Logout user'
 
     field :subscribe_user_to_newsletter,
@@ -23,11 +23,11 @@ module Types
           description: 'Remove user from newsletter'
 
     field :update_user,
-          mutation: Mutations::Users::UpdateUserMutation,
+          mutation: Mutations::Users::UpdateMutation,
           description: 'Update user'
 
     field :remove_user,
-          mutation: Mutations::Users::RemoveUserMutation,
+          mutation: Mutations::Users::RemoveMutation,
           description: "Remove user's account"
 
     field :add_opinion,
@@ -35,7 +35,7 @@ module Types
           description: "Add user's opinion"
 
     field :add_order,
-          mutation: Mutations::Orders::AddOrderMutation,
+          mutation: Mutations::Orders::CreateOrder,
           description: "Add user's order"
 
     field :monitor_resources,

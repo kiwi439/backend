@@ -529,12 +529,12 @@ Style/SuperArguments:
   Exclude:
     - 'app/graphql/mutations/newsletter/create.rb'
     - 'app/graphql/mutations/opinions/create_mutation.rb'
-    - 'app/graphql/mutations/orders/add_order_mutation.rb'
+    - 'app/graphql/mutations/orders/create_order.rb'
     - 'app/graphql/mutations/tools/monitor_resources_mutation.rb'
-    - 'app/graphql/mutations/users/login_user_mutation.rb'
-    - 'app/graphql/mutations/users/logout_user_mutation.rb'
-    - 'app/graphql/mutations/users/register_user_mutation.rb'
-    - 'app/graphql/mutations/users/update_user_mutation.rb'
+    - 'app/graphql/mutations/users/login_mutation.rb'
+    - 'app/graphql/mutations/users/logout_mutation.rb'
+    - 'app/graphql/mutations/users/register_mutation.rb'
+    - 'app/graphql/mutations/users/update_mutation.rb'
     - 'lib/services/seed_generator/base_service.rb'
 
 # Offense count: 1

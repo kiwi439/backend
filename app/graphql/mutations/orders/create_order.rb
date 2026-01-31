@@ -1,9 +1,8 @@
 # frozen_string_literal: true
 
-# TODO: CreateMutation
 module Mutations
   module Orders
-    class AddOrderMutation < Mutations::BaseMutation
+    class CreateOrder < BaseMutation
       argument :input, Types::Inputs::Mutation::Order::AddOrderInput, required: true
       type Types::Objects::Order::Order
 
