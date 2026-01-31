@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-# TODO: Sprawdzić czy zapytania są wydajne
-
 module Queries
   class ProductsQuery < BaseQuery
     type Types::Objects::Product.connection_type, null: false
