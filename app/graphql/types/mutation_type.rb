@@ -15,7 +15,7 @@ module Types
           description: 'Logout user'
 
     field :subscribe_user_to_newsletter,
-          mutation: Mutations::Newsletter::SubscribeUserToNewsletterMutation,
+          mutation: Mutations::Newsletter::Create,
           description: 'Save user to newsletter'
 
     field :unsubscribe_user_from_newsletter,

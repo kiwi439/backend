@@ -2,13 +2,12 @@
 
 module Mutations
   module Newsletter
-    class SubscribeUserToNewsletterMutation < BaseMutation
+    class Create < BaseMutation
       argument :input, Types::Inputs::Mutation::Newsletter::SubscribeUserToNewsletterInput, required: true
-      type Types::Objects::User::User
+      type Types::Objects::Newsletter::Newsletter, null: false
 
       def resolve(params)
         super(params)
-        # TODO: Jakim cudem zwracam tutaj usera a nie newsletter? Błąd typów
         ::Newsletter.create!(email: @params.fetch(:email), name: @params.fetch(:name), surname: @params.fetch(:surname))
       end
     end

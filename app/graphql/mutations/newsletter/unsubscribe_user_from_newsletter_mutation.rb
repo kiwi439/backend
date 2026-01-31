@@ -4,11 +4,10 @@ module Mutations
   module Newsletter
     class UnsubscribeUserFromNewsletterMutation < GraphQL::Schema::Mutation
       argument :email, String, required: true
-      type Types::Objects::User::User
+      type Types::Objects::Newsletter::Newsletter, null: true
 
-      def resolve(params)
-        # TODO: Jakim cudem zwracam tutaj usera? Błąd typów
-        ::Newsletter.find_by(email: params.fetch(:email))&.destroy!
+      def resolve(email:)
+        ::Newsletter.find_by(email: email)&.destroy!
       end
     end
   end
