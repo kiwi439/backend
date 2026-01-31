@@ -9,12 +9,12 @@ module Types
           resolver: Queries::ProductsQuery,
           description: 'Returns products connection. Supports filtering by promoted and type. Uses Relay Connections for pagination (first/after, last/before)'
 
-    field :is_user_logged,
-          resolver: Queries::Users::IsUserLoggedQuery,
-          description: "Returns info if user's session is present"
+    field :current_user,
+          resolver: Queries::CurrentUserQuery,
+          description: 'Returns current user from session'
 
     field :user,
-          resolver: Queries::Users::UserQuery,
+          resolver: Queries::UserQuery,
           description: 'Returns user'
 
     field :opinions,
