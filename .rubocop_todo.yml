@@ -246,7 +246,6 @@ RSpec/IndexedLet:
     - 'spec/lib/tasks/send_newsletter_spec.rb'
     - 'spec/presenters/order_presenter_spec.rb'
     - 'spec/queries/opinion_query_spec.rb'
-    - 'spec/queries/order_query_spec.rb'
     - 'spec/queries/product_query_spec.rb'
     - 'spec/services/orders/calculate_total_price_service_spec.rb'
 

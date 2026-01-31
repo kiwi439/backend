@@ -23,6 +23,6 @@ module Types
 
     field :orders,
           resolver: Queries::Orders::OrdersQuery,
-          description: 'Returns array of order'
+          description: 'Returns orders connection. Supports filtering by user_id. Uses Relay Connections for pagination (first/after, last/before)'
   end
 end

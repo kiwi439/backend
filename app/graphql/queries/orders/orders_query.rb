@@ -3,16 +3,14 @@
 module Queries
   module Orders
     class OrdersQuery < BaseQuery
-      argument :input, Types::Inputs::Query::OrdersInput, required: false
-      type Types::Objects::Order::Orders, null: false
+      type Types::Objects::Order::Order.connection_type, null: false
 
-      def resolve(params)
-        response = OrderQuery.new(params).call
+      argument :user_id, ID, required: false, description: 'Filter orders by user'
 
-        {
-          orders: response[:orders],
-          total_count: response[:quantity]
-        }
+      def resolve(user_id: nil)
+        orders = Order.order(created_at: :desc)
+        orders = User.find(user_id).orders.order(created_at: :desc) if user_id
+        orders
       end
     end
   end
