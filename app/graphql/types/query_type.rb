@@ -22,7 +22,7 @@ module Types
           description: 'Returns opinions connection. Uses Relay Connections for pagination (first/after, last/before)'
 
     field :orders,
-          resolver: Queries::Orders::OrdersQuery,
+          resolver: Queries::OrdersQuery,
           description: 'Returns orders connection. Supports filtering by user_id. Uses Relay Connections for pagination (first/after, last/before)'
   end
 end
