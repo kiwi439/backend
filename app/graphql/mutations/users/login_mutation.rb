@@ -2,7 +2,7 @@
 
 module Mutations
   module Users
-    class LoginUserMutation < Mutations::BaseMutation
+    class LoginMutation < BaseMutation
       argument :input, Types::Inputs::Mutation::User::LoginUserInput, required: true
       type Types::Objects::User::User
 

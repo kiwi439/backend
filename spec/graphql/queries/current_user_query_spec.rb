@@ -1,11 +1,11 @@
-describe Queries::Users::IsUserLoggedQuery, type: :request do
+describe Queries::CurrentUserQuery, type: :request do
   describe 'request' do
     subject { post '/graphql', params: { query: query } }
 
     let(:query) do
       <<~GQL
         query {
-          isUserLogged {
+          currentUser {
             id
           }
         }
@@ -19,7 +19,7 @@ describe Queries::Users::IsUserLoggedQuery, type: :request do
     end
 
     it 'returns proper response' do
-      expected_response = { data: { isUserLogged: nil }}
+      expected_response = { data: { currentUser: nil } }
 
       expect(parse_request_body).to eq(expected_response)
     end

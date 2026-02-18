@@ -2,7 +2,7 @@
 
 module Mutations
   module Opinions
-    class AddOpinionMutation < BaseMutation
+    class CreateMutation < BaseMutation
       argument :input, Types::Inputs::Mutation::Opinion::OpinionInput, required: true
       type Types::Objects::Opinion::Opinion
 
