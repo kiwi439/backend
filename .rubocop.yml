@@ -9,5 +9,6 @@ AllCops:
   NewCops: enable
   Exclude:
     - db/schema.rb
+    - vendor/**/*
 Style/RedundantAssignment:
   Enabled: false

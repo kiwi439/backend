@@ -1,0 +1,15 @@
+name: 'Bootstrap environment'
+description: 'Checkout, setup Ruby cache and install dependencies'
+runs:
+  using: composite
+  steps:
+    - name: Upload repository
+      uses: actions/checkout@v3
+    - name: Setup Ruby
+      uses: ruby/setup-ruby-pkgs@v1.32.3
+      with:
+        ruby-version: '3.1.1'
+        bundler-cache: true
+    - name: Install dependencies
+      run: bundle install
+      shell: bash
