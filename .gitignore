@@ -24,3 +24,5 @@
 
 .env
 bin/monitor_resources.sh
+
+node_modules

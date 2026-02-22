@@ -1,0 +1,9 @@
+name: 'Notify deploy ready'
+description: 'Send email that deploy is doable'
+inputs:
+  smtp-password:
+    description: 'SMTP password'
+    required: true
+runs:
+  using: 'node20'
+  main: 'dist/index.js'
