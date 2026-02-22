@@ -77,7 +77,7 @@ jobs:
         run: bundle exec rspec
   e2e-tests:
     needs: tests
-    uses: michal-siwiec/system-tests/.github/workflows/shop_e2e_tests.yml@develop
+    uses: kiwi439/system-tests/.github/workflows/shop_e2e_tests.yml@develop
     with:
       budoman-backend_branch: ${{ github.ref_name }}
     secrets:
