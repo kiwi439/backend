@@ -4,6 +4,12 @@ inputs:
   smtp-password:
     description: 'SMTP password'
     required: true
+  commit-sha:
+    description: 'Commit SHA'
+    required: true
+  repository:
+    description: 'Repository name'
+    required: true
 runs:
-  using: 'node20'
-  main: 'dist/index.js'
+  using: 'docker'
+  image: 'Dockerfile'
