@@ -81,6 +81,7 @@ jobs:
     with:
       budoman-backend_branch: ${{ github.ref_name }}
     secrets:
+      E2E_READ_REPOSITORIES_TOKEN: ${{ secrets.E2E_READ_REPOSITORIES_TOKEN }}
       BUDOMAN_FRONTEND_AWS_ACCESS_KEY_ID: ${{ secrets.BUDOMAN_FRONTEND_AWS_ACCESS_KEY_ID }}
       BUDOMAN_FRONTEND_AWS_SECRET_ACCESS_KEY: ${{ secrets.BUDOMAN_FRONTEND_AWS_SECRET_ACCESS_KEY }}
       BUDOMAN_BACKEND_AWS_ACCESS_KEY_ID: ${{ secrets.BUDOMAN_BACKEND_AWS_ACCESS_KEY_ID }}
@@ -97,3 +98,5 @@ jobs:
         uses: ./.github/actions/notify-deploy-doable
         with:
           smtp-password: ${{ secrets.SMTP_PASSWORD }}
+          commit-sha: ${{ github.sha }}
+          repository: ${{ github.repository }}
