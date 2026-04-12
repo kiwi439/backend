@@ -53,5 +53,7 @@ module OlxBackend
 
     # Stream platform
     config.schema_registry_url = 'http://schema-registry:8081'
+
+    config.frontend_url = 'http://localhost:3333'
   end
 end

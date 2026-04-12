@@ -88,4 +88,6 @@ Rails.application.configure do
   config.action_dispatch.cookies_same_site_protection = :none
   # Use secure cookies
   config.action_dispatch.cookies_secure = true
+
+  config.frontend_url = 'https://budoman.eu'
 end
