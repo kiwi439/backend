@@ -4,5 +4,5 @@ class Newsletter < ApplicationRecord
   validates :email,
             presence: true,
             uniqueness: { message: 'is already taken!' },
-            format: { with: EMAIL_REGEX }
+            format: { with: Constants::EMAIL_REGEX }
 end

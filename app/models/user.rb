@@ -4,7 +4,7 @@ class User < ApplicationRecord
   has_secure_password
 
   validates :email,
-            uniqueness: { message: 'is already taken!' }, format: { with: EMAIL_REGEX }
+            uniqueness: { message: 'is already taken!' }, format: { with: Constants::EMAIL_REGEX }
 
   validates_with UserValidator, fields: [:avatars]
 
