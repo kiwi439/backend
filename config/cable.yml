@@ -6,5 +6,5 @@ test:
 
 production:
   adapter: redis
-  url: <%= Rails.application.config.redis_url %>
+  url: <%= Rails.application.config.x.redis_url %>
   channel_prefix: olx-backend_production

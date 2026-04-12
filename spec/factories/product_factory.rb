@@ -4,7 +4,7 @@ FactoryBot.define do
     price { 225.99 }
     available_quantity { 24 }
     picture_key { 'path_to_source_on_storage' }
-    picture_bucket { Rails.configuration.aws_bucket }
+    picture_bucket { Rails.application.config.x.aws_bucket }
     promoted_from { nil }
     promoted_to { nil }
 

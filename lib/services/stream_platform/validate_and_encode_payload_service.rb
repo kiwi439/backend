@@ -12,7 +12,7 @@ module Services
         super()
         @payload = payload
         @schema_name = schema_name
-        @avro = AvroTurf::Messaging.new(registry_url: Rails.application.config.schema_registry_url)
+        @avro = AvroTurf::Messaging.new(registry_url: Rails.application.config.x.schema_registry_url)
       end
 
       def call(version: 1, validate: true)

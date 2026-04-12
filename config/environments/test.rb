@@ -32,7 +32,7 @@ Rails.application.configure do
 
   # Store uploaded files on the local file system in a temporary directory
   config.active_storage.service = :test
-  config.aws_bucket = 'budoman-development'
+  config.x.aws_bucket = 'budoman-development'
 
   config.action_mailer.perform_caching = false
 

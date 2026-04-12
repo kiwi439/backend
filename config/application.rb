@@ -41,19 +41,19 @@ module OlxBackend
     }
 
     # For async jobs
-    config.redis_url = 'redis://redis:6379/0'
+    config.x.redis_url = 'redis://redis:6379/0'
     config.active_job.queue_adapter = :sidekiq
-    config.cache_store = :redis_cache_store, { url: config.redis_url }
+    config.cache_store = :redis_cache_store, { url: config.x.redis_url }
 
     # To use code from /lib directory
     config.autoload_lib(ignore: %w[tasks])
 
     # AWS config
-    config.aws_region = 'eu-central-1'
+    config.x.aws_region = 'eu-central-1'
 
     # Stream platform
-    config.schema_registry_url = 'http://schema-registry:8081'
+    config.x.schema_registry_url = 'http://schema-registry:8081'
 
-    config.frontend_url = 'http://localhost:3333'
+    config.x.frontend_url = 'http://localhost:3333'
   end
 end
