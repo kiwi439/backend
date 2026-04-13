@@ -50,6 +50,7 @@ jobs:
       RAILS_ENV: test
       AWS_ACCESS_KEY_ID: ${{ secrets.BUDOMAN_BACKEND_AWS_ACCESS_KEY_ID }}
       AWS_SECRET_ACCESS_KEY: ${{ secrets.BUDOMAN_BACKEND_AWS_SECRET_ACCESS_KEY }}
+      STRIPE_SECRET_KEY: ${{ secrets.BUDOMAN_BACKEND_STRIPE_SECRET_KEY }}
     services:
       postgres:
         image: postgres
