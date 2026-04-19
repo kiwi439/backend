@@ -4,7 +4,7 @@ module Mutations
   module Orders
     class CreateOrder < BaseMutation
       argument :input, Types::Inputs::Mutation::Order::AddOrderInput, required: true
-      type Types::Objects::Order::Order
+      type GraphQL::Types::String, null: false
 
       def resolve(params)
         super(params)
