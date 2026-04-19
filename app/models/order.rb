@@ -7,7 +7,7 @@ class Order < ApplicationRecord
     { method: 'pick_up_at_the_point', price: 0.0 }
   ].freeze
 
-  ALLOWED_PAYMENT_METHOD = %w[cash_payment traditional_transfer].freeze
+  ALLOWED_PAYMENT_METHOD = %w[stripe_payment].freeze
   PHONE_NUMBER_REGEX = /\A[0-9]{9}\z/
 
   belongs_to :user
