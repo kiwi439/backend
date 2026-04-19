@@ -2,9 +2,9 @@
 
 class Order < ApplicationRecord
   DELIVERIES_DETAILS = [
-    { method: 'in_post', price: 10.99 },
-    { method: 'dpd', price: 15.99 },
-    { method: 'pick_up_at_the_point', price: 0.0 }
+    { method: 'in_post', price: 10.99, label: 'Dostawa: Paczkomat InPost' },
+    { method: 'dpd', price: 15.99, label: 'Dostawa: DPD' },
+    { method: 'pick_up_at_the_point', price: 0.0, label: 'Odbiór osobisty' }
   ].freeze
 
   ALLOWED_PAYMENT_METHOD = %w[stripe_payment].freeze
