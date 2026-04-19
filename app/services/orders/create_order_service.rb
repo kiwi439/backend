@@ -1,3 +1,4 @@
+# TODO: Czy nie potrzebuje zmienic tej nazwy na handleCreateOrder?
 module Orders
   class CreateOrderService
     extend Utils::CallableObject
@@ -11,7 +12,8 @@ module Orders
       order = create_order
       upload_invoice_to_storage(order: order)
       send_order_created_email(order: order)
-      order
+      session = create_stripe_checkout_session(order: order)
+      session.url
     end
 
     private
@@ -46,6 +48,10 @@ module Orders
 
     def send_order_created_email(order:)
       OrderMailer.with(order: order).order_created.deliver_later(queue: :order)
+    end
+
+    def create_stripe_checkout_session(order:)
+      Payments::Stripe::CreateCheckoutSessionService.call(order: order)
     end
   end
 end
