@@ -19,7 +19,7 @@ module Payments
         ::Stripe::Checkout::Session.create(
           mode: 'payment',
           line_items: line_items,
-          success_url: "#{Rails.configuration.x.frontend_url}/thank-you-page?session_id={CHECKOUT_SESSION_ID}",
+          success_url: "#{Rails.configuration.x.frontend_url}/thank-you-page?session_id={CHECKOUT_SESSION_ID}&order_id=#{@order.id}",
           cancel_url: "#{Rails.configuration.x.frontend_url}/payment-canceled",
           metadata: { order_id: @order.id }
         )
