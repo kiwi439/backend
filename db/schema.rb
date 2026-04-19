@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2023_12_23_163923) do
+ActiveRecord::Schema[7.1].define(version: 2026_04_19_130000) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
   enable_extension "plpgsql"
@@ -61,6 +61,17 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_23_163923) do
     t.check_constraint "length(postal_code::text) > 0", name: "postal_code_length_check"
     t.check_constraint "length(street::text) > 0", name: "street_length_check"
     t.check_constraint "length(surname::text) > 0", name: "surname_length_check"
+  end
+
+  create_table "payments", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "order_id", null: false
+    t.string "status", default: "pending", null: false
+    t.string "provider", null: false
+    t.integer "amount_cents", null: false
+    t.jsonb "provider_data", default: {}, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["order_id"], name: "index_payments_on_order_id"
   end
 
   create_table "product_categories", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -122,6 +133,7 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_23_163923) do
   add_foreign_key "opinions", "users"
   add_foreign_key "orders", "users"
   add_foreign_key "orders", "users", name: "orders_user_id_fkey"
+  add_foreign_key "payments", "orders"
   add_foreign_key "products", "product_categories"
   add_foreign_key "products_orders", "orders"
   add_foreign_key "products_orders", "products"
