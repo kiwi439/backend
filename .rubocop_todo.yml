@@ -155,7 +155,7 @@ Layout/TrailingWhitespace:
 # Configuration parameters: AllowedMethods, AllowedPatterns.
 Lint/AmbiguousBlockAssociation:
   Exclude:
-    - 'spec/services/orders/create_order_service_spec.rb'
+    - 'spec/services/orders/submit_order_service_spec.rb'
     - 'spec/services/session/user_session_service_spec.rb'
 
 # Offense count: 1
@@ -233,7 +233,7 @@ RSpec/ExampleLength:
 # SupportedStyles: method_call, block
 RSpec/ExpectChange:
   Exclude:
-    - 'spec/services/orders/create_order_service_spec.rb'
+    - 'spec/services/orders/submit_order_service_spec.rb'
 
 # Offense count: 8
 # Configuration parameters: Max, AllowedIdentifiers, AllowedPatterns.
@@ -273,7 +273,7 @@ RSpec/NestedGroups:
 # This cop supports unsafe autocorrection (--autocorrect-all).
 RSpec/ReceiveMessages:
   Exclude:
-    - 'spec/services/orders/create_order_service_spec.rb'
+    - 'spec/services/orders/submit_order_service_spec.rb'
 
 # Offense count: 4
 # This cop supports unsafe autocorrection (--autocorrect-all).
@@ -510,7 +510,7 @@ Style/RedundantFetchBlock:
 # This cop supports safe autocorrection (--autocorrect).
 Style/RescueModifier:
   Exclude:
-    - 'spec/services/orders/create_order_service_spec.rb'
+    - 'spec/services/orders/submit_order_service_spec.rb'
     - 'spec/services/session/user_session_service_spec.rb'
     - 'spec/services/users/registration/register_user_service_spec.rb'
     - 'spec/services/users/remove_user_service_spec.rb'

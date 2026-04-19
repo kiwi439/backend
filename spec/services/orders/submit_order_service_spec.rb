@@ -1,4 +1,4 @@
-describe Orders::CreateOrderService, type: :service do
+describe Orders::SubmitOrderService, type: :service do
   describe '#call' do
     subject { described_class.call(params: params) }
 

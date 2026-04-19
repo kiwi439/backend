@@ -1,6 +1,7 @@
-# TODO: Czy nie potrzebuje zmienic tej nazwy na handleCreateOrder?
+# frozen_string_literal: true
+
 module Orders
-  class CreateOrderService
+  class SubmitOrderService
     extend Utils::CallableObject
 
     def initialize(params:)
