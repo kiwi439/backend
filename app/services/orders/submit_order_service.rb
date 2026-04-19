@@ -14,6 +14,7 @@ module Orders
       upload_invoice_to_storage(order: order)
       send_order_created_email(order: order)
       session = create_stripe_checkout_session(order: order)
+      create_payment(order: order, session: session)
       session.url
     end
 
@@ -53,6 +54,21 @@ module Orders
 
     def create_stripe_checkout_session(order:)
       Payments::Stripe::CreateCheckoutSessionService.call(order: order)
+    end
+
+    def create_payment(order:, session:)
+      Payment.create!(
+        order: order,
+        status: :pending,
+        provider: 'stripe',
+        provider_data: {
+          id: session.id,
+          amount: session.amount_total,
+          currency: session.currency,
+          payment_method_types: session.payment_method_types,
+          redirect_url: session.url,
+        }
+      )
     end
   end
 end
