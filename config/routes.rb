@@ -12,5 +12,14 @@ Rails.application.routes.draw do
   mount GraphiQL::Rails::Engine, at: '/graphiql', graphql_path: 'graphql#execute' if Rails.env.development?
 
   post '/graphql', to: 'graphql#execute'
+
+  namespace :payments do
+    resources :stripe, only: [] do
+      collection do
+        post :update_status
+      end
+    end
+  end
+
   get '/', to: proc { [200, {}, ['']] } if Rails.env.test? # Cypress check whether container is turned on sending request on /
 end

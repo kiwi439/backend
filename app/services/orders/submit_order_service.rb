@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+# TODO: Dodać dokumentacje jak skonfigurować Stripe lokalnie
+
 module Orders
   class SubmitOrderService
     extend Utils::CallableObject
@@ -61,9 +63,9 @@ module Orders
         order: order,
         status: :pending,
         provider: 'stripe',
+        amount_cents: session.amount_total,
         provider_data: {
-          id: session.id,
-          amount: session.amount_total,
+          checkout_session_id: session.id,
           currency: session.currency,
           payment_method_types: session.payment_method_types,
           redirect_url: session.url,
