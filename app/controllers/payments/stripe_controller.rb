@@ -15,8 +15,6 @@ module Payments
 
     private
 
-    # TODO: Status "canceled" - nowy endpoint i robic to po mojej stronie.
-
     def verify_event
       payload = request.raw_post
       signature = request.headers['Stripe-Signature']

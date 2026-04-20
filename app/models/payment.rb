@@ -7,7 +7,7 @@ class Payment < ApplicationRecord
 
   belongs_to :order
 
-  enum :status, { pending: 'pending', succeeded: 'succeeded', failed: 'failed', canceled: 'canceled', expired: 'expired' }, validate: true
+  enum :status, { pending: 'pending', succeeded: 'succeeded', failed: 'failed', expired: 'expired' }, validate: true
 
   validates :provider, presence: true, inclusion: { in: PROVIDERS }
   validates :amount_cents, presence: true, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
