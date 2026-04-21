@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-# TODO: Dodać dokumentacje jak skonfigurować Stripe lokalnie
-
 module Orders
   class SubmitOrderService
     extend Utils::CallableObject
