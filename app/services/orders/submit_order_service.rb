@@ -65,7 +65,6 @@ module Orders
         provider_data: {
           checkout_session_id: session.id,
           currency: session.currency,
-          payment_method_types: session.payment_method_types,
           redirect_url: session.url,
         }
       )
