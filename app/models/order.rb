@@ -22,4 +22,12 @@ class Order < ApplicationRecord
   validates :phone_number, presence: true, format: { with: Constants::PHONE_NUMBER_REGEX }
   validates :delivery_method, inclusion: { in: DELIVERIES_DETAILS.pluck(:method) }
   validates :payment_method, inclusion: { in: ALLOWED_PAYMENT_METHOD }
+
+  def paid?
+    payments.succeeded.any?
+  end
+
+  def successful_payment
+    payments.succeeded.order(created_at: :desc).first
+  end
 end
