@@ -8,6 +8,7 @@ module Types
         field :created_at, GraphQL::Types::ISO8601DateTime, null: false, description: 'Order creation timestamp'
         field :delivery_method, Types::Enums::Order::DeliveryMethodEnum, null: false, description: 'Delivery method'
         field :id, ID, null: false, description: 'Order ID'
+        field :latest_payment, Types::Objects::Payment::Payment, null: true, description: 'Most recent payment attempt'
         field :name, String, null: false, description: 'Customer name'
         field :paid, Boolean, null: false, description: 'Whether the order has a succeeded payment'
         field :payment_method, Types::Enums::Order::PaymentMethodEnum, null: false, description: 'Payment method'
@@ -16,7 +17,7 @@ module Types
         field :street, String, null: false, description: 'Delivery street address'
         field :successful_payment, Types::Objects::Payment::Payment, null: true, description: 'Succeeded payment record if any'
         field :surname, String, null: false, description: 'Customer surname'
-        field :total_price, Float, null: false, description: 'Total order price'
+        field :total_price, Float, null: false, description: 'Total order price' #? Czy to nie powinno byc z payment brane?
 
         def total_price
           ::Orders::CalculateTotalPriceService.call(order: object)
@@ -24,6 +25,10 @@ module Types
 
         def paid
           object.paid?
+        end
+
+        def latest_payment
+          object.payments.order(created_at: :desc).first
         end
       end
     end

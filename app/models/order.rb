@@ -26,8 +26,4 @@ class Order < ApplicationRecord
   def paid?
     payments.succeeded.any?
   end
-
-  def successful_payment
-    payments.succeeded.order(created_at: :desc).first
-  end
 end
