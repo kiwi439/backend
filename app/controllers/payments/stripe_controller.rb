@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-# stripe listen --events checkout.session.completed,checkout.session.expired --forward-to localhost:3333/payments/stripe/update_status
-
 module Payments
   class StripeController < ApplicationController
     def update_status
