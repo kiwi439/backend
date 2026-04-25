@@ -20,7 +20,7 @@ module Payments
           mode: 'payment',
           payment_method_types: Payment::STRIPE_AVAILABLE_METHODS,
           line_items: line_items,
-          success_url: "#{Rails.configuration.x.frontend_url}/thank-you-page?session_id={CHECKOUT_SESSION_ID}&order_id=#{@order.id}",
+          success_url: "#{Rails.configuration.x.frontend_url}/thank-you-page?order_id=#{@order.id}",
           cancel_url: "#{Rails.configuration.x.frontend_url}/payment-canceled",
           metadata: { order_id: @order.id }
         )
