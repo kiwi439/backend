@@ -4,6 +4,8 @@ module Types
   module Objects
     module Order
       class Order < Types::BaseObject
+        PLN_TO_CENTS_MULTIPLIER = 100.0
+
         field :city, String, null: false, description: 'Delivery city'
         field :created_at, GraphQL::Types::ISO8601DateTime, null: false, description: 'Order creation timestamp'
         field :delivery_method, Types::Enums::Order::DeliveryMethodEnum, null: false, description: 'Delivery method'
@@ -17,10 +19,10 @@ module Types
         field :street, String, null: false, description: 'Delivery street address'
         field :successful_payment, Types::Objects::Payment::Payment, null: true, description: 'Succeeded payment record if any'
         field :surname, String, null: false, description: 'Customer surname'
-        field :total_price, Float, null: false, description: 'Total order price' #? Czy to nie powinno byc z payment brane?
+        field :total_price, Float, null: false, description: 'Total amount based on latest payment when available'
 
         def total_price
-          ::Orders::CalculateTotalPriceService.call(order: object)
+          latest_payment.amount_cents / PLN_TO_CENTS_MULTIPLIER
         end
 
         def paid
