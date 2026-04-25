@@ -6,11 +6,6 @@ describe User, type: :model do
     it { is_expected.to validate_uniqueness_of(:email).with_message('is already taken!') }
     it { is_expected.to allow_value('test@example.com').for(:email) }
     it { is_expected.not_to allow_value('test').for(:email) }
-
-    it { is_expected.to validate_presence_of(:name) }
-    it { is_expected.to validate_presence_of(:surname) }
-    it { is_expected.to validate_presence_of(:street) }
-    it { is_expected.to validate_presence_of(:city) }
     
     it { is_expected.not_to allow_value('abc').for(:phone_number) }
     it { is_expected.not_to allow_value('123-456-789').for(:phone_number) }

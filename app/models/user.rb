@@ -6,10 +6,6 @@ class User < ApplicationRecord
   has_secure_password
 
   validates :email, presence: true, uniqueness: { message: 'is already taken!' }, format: { with: Constants::EMAIL_REGEX }
-  validates :name, presence: true
-  validates :surname, presence: true
-  validates :street, presence: true
-  validates :city, presence: true
   validates :phone_number, format: { with: Constants::PHONE_NUMBER_REGEX }, allow_blank: true
   validates :postal_code, format: { with: Constants::POSTAL_CODE_REGEX }, allow_blank: true
   validates_with UserValidator, fields: [:avatars]
