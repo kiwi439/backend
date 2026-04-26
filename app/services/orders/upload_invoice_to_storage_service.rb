@@ -19,7 +19,7 @@ module Orders
 
     def build_invoice_payload
       {
-        bucket: Rails.application.config.aws_bucket,
+        bucket: Rails.application.config.x.aws_bucket,
         path: "users/#{@order.user_id}/invoices/#{@order.id}.pdf",
         body: generate_invoice_in_base64
       }

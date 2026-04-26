@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 module Orders
-  class CreateOrderService
+  class SubmitOrderService
     extend Utils::CallableObject
 
     def initialize(params:)
@@ -11,7 +13,9 @@ module Orders
       order = create_order
       upload_invoice_to_storage(order: order)
       send_order_created_email(order: order)
-      order
+      session = create_stripe_checkout_session(order: order)
+      create_payment(order: order, session: session)
+      session.url
     end
 
     private
@@ -46,6 +50,24 @@ module Orders
 
     def send_order_created_email(order:)
       OrderMailer.with(order: order).order_created.deliver_later(queue: :order)
+    end
+
+    def create_stripe_checkout_session(order:)
+      Payments::Stripe::CreateCheckoutSessionService.call(order: order)
+    end
+
+    def create_payment(order:, session:)
+      Payment.create!(
+        order: order,
+        status: :pending,
+        provider: 'stripe',
+        amount_cents: session.amount_total,
+        provider_data: {
+          checkout_session_id: session.id,
+          currency: session.currency,
+          redirect_url: session.url,
+        }
+      )
     end
   end
 end

@@ -31,7 +31,7 @@ module Users
       end
 
       def generate_avatar_details(path_to_file:)
-        { main: @avatar.fetch(:main), bucket: Rails.application.config.aws_bucket, key: path_to_file }
+        { main: @avatar.fetch(:main), bucket: Rails.application.config.x.aws_bucket, key: path_to_file }
       end
     end
   end

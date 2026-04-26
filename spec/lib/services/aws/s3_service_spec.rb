@@ -4,7 +4,7 @@ describe Services::Aws::S3Service, type: :service do
   subject { described_class.new }
 
   let(:mock_client) { instance_double(Aws::S3::Client) }
-  let(:bucket) { Rails.configuration.aws_bucket }
+  let(:bucket) { Rails.application.config.x.aws_bucket }
 
   before do
     allow(Aws::S3::Client).to receive(:new).and_return(mock_client)

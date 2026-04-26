@@ -15,7 +15,7 @@ Rails.application.configure do
   config.consider_all_requests_local = true
 
   # Store uploaded files on the local file system (see config/storage.yml for options)
-  config.aws_bucket = 'budoman-development'
+  config.x.aws_bucket = 'budoman-development'
 
   # For mailers
   config.action_mailer.perform_caching = false

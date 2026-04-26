@@ -41,6 +41,8 @@ gem 'sprockets-rails', '~> 3.4.2'
 gem 'waterdrop', '~> 2.6.7'
 # To work with a avro schemas
 gem 'avro_turf', '~> 1.12.0'
+# Online payments
+gem 'stripe', '~> 13.0'
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]

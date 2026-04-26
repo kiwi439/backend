@@ -32,7 +32,7 @@ Rails.application.configure do
   # config.action_dispatch.x_sendfile_header = 'X-Accel-Redirect' # for NGINX
 
   # Store uploaded files on the local file system (see config/storage.yml for options)
-  config.aws_bucket = 'budoman-production'
+  config.x.aws_bucket = 'budoman-production'
 
   # Mount Action Cable outside main process or domain
   # config.action_cable.mount_path = nil
@@ -88,4 +88,6 @@ Rails.application.configure do
   config.action_dispatch.cookies_same_site_protection = :none
   # Use secure cookies
   config.action_dispatch.cookies_secure = true
+
+  config.x.frontend_url = 'https://budoman.eu'
 end
