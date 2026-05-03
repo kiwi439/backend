@@ -51,6 +51,9 @@ module OlxBackend
     # AWS config
     config.x.aws_region = 'eu-central-1'
 
+    # inFakt
+    config.x.infakt_api_url = 'https://api.sandbox-infakt.pl'
+
     # Stream platform
     config.x.schema_registry_url = 'http://schema-registry:8081'
 
