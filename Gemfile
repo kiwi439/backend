@@ -43,6 +43,8 @@ gem 'waterdrop', '~> 2.6.7'
 gem 'avro_turf', '~> 1.12.0'
 # Online payments
 gem 'stripe', '~> 13.0'
+# REST client
+gem 'httparty', '~> 0.22.0'
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
