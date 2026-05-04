@@ -27,12 +27,17 @@ module Payments
         payment = Payment.where(provider: 'stripe').find_by!("provider_data ->> ? = ?", 'checkout_session_id', session.id)
         status = Payment::STRIPE_STATUS_MAPPING.fetch(session.payment_status)
         payment.update!(status: status)
+        create_invoice(payment.order)
       when 'checkout.session.expired'
         payment = Payment.where(provider: 'stripe').find_by!("provider_data ->> ? = ?", 'checkout_session_id', session.id)
         payment.expired!
       else
         raise StandardError.new('Unsupported event type!')
       end
+    end
+
+    def create_invoice(order)
+      Invoices::Infakt::CreateInvoiceService.new(order:).call
     end
   end
 end

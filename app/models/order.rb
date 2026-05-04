@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Order < ApplicationRecord
+  PLN_TO_CENTS_MULTIPLIER = 100.0
+
   DELIVERIES_DETAILS = [
     { method: 'in_post', price: 10.99, label: 'Dostawa: Paczkomat InPost' },
     { method: 'dpd', price: 15.99, label: 'Dostawa: DPD' },
@@ -25,5 +27,13 @@ class Order < ApplicationRecord
 
   def paid?
     payments.succeeded.any?
+  end
+
+  def latest_payment
+    payments.order(created_at: :desc).first
+  end
+
+  def total_price
+    (latest_payment&.amount_cents.to_i / PLN_TO_CENTS_MULTIPLIER)
   end
 end
