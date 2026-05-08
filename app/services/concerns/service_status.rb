@@ -6,6 +6,6 @@ module ServiceStatus
   end
 
   def errors
-    @errors ||= {}
+    @errors ||= []
   end
 end

@@ -3,16 +3,19 @@
 module Invoices
   module Infakt
     class BaseService
-      include ::ServiceStatus
+      include ServiceStatus
 
       def call
         response = HTTParty.post(url, headers:, body: body.to_json)
-        binding.pry
+        return handle_error(response.parsed_response) unless response.success?
+
+        response
+      rescue StandardError => e
+        handle_error(e.message)
       end
 
       private
 
-      # TODO: "#{Rails.application.config.x.infakt_api_url}/api/v3/invoices.json"
       def url
         "#{Rails.application.config.x.infakt_api_url}/#{resource_path}"
       end
@@ -31,6 +34,11 @@ module Invoices
 
       def body
         raise NotImplementedError, "body has to be defined!"
+      end
+
+      def handle_error(error)
+        errors << error
+        nil
       end
     end
   end

@@ -37,7 +37,11 @@ module Payments
     end
 
     def create_invoice(order)
-      Invoices::Infakt::CreateInvoiceService.new(order:).call
+      service = Invoices::Infakt::CreateInvoiceService.new(order:)
+      service.call
+      return if service.success?
+
+      Rollbar.error(service.errors)
     end
   end
 end
