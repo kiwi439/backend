@@ -583,7 +583,6 @@ Style/SuperArguments:
     - 'app/graphql/mutations/users/logout_mutation.rb'
     - 'app/graphql/mutations/users/register_mutation.rb'
     - 'app/graphql/mutations/users/update_mutation.rb'
-    - 'lib/services/seed_generator/base_service.rb'
 
 # Offense count: 1
 # This cop supports safe autocorrection (--autocorrect).

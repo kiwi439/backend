@@ -21,8 +21,6 @@ gem 'aws-sdk-s3', '~> 1.134'
 gem 'aws-sdk-lambda', '~> 1.113'
 # To use graphql
 gem 'graphql', '~> 2.1.0'
-# to process exel files
-gem 'rubyXL', '~> 3.4.25'
 # to generate token
 gem 'jwt', '~> 2.7.1'
 # to generate pdf
