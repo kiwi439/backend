@@ -21,4 +21,4 @@ RUN bundle config set force_ruby_platform true && \
     bundle install
 
 # START THE APPLICATION
-ENTRYPOINT ["/bin/sh", "-c", "chmod u+x /budoman-backend/bin/container-startup.sh && /budoman-backend/bin/container-startup.sh"]
+ENTRYPOINT ["/bin/sh", "-c", "chmod u+x /budoman-backend/bin/start-container.sh && /budoman-backend/bin/start-container.sh"]
