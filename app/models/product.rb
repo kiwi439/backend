@@ -7,6 +7,7 @@ class Product < ApplicationRecord
   validates :available_quantity, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
   validates :picture_key, presence: true
   validates :picture_bucket, presence: true
+  validates :vat_rate, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
 
   scope :promoted, -> { where('promoted_from <= ? AND promoted_to > ?', Time.now, Time.now) }
   scope :from_type, ->(type) { joins(:product_category).where(product_categories: { name: type }) }
