@@ -11,4 +11,10 @@ class Product < ApplicationRecord
 
   scope :promoted, -> { where('promoted_from <= ? AND promoted_to > ?', Time.now, Time.now) }
   scope :from_type, ->(type) { joins(:product_category).where(product_categories: { name: type }) }
+
+  def gross_price
+    netto_price = price.to_d
+    vat_multiplier = 1 + (BigDecimal(vat_rate.to_s) / 100)
+    (netto_price * vat_multiplier).round(2, :half_up)
+  end
 end
