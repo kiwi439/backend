@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# order = Order.find('1f0ad2ff-f95b-4869-9e2e-6788e1545aac')
+# order = Order.find('a72c94d2-fca1-42e0-b2b1-b81ab57a7126')
 # service = Invoices::Infakt::CreateInvoiceService.new(order:)
 # service.call
 
@@ -24,7 +24,11 @@ module Invoices
         'api/v3/async/invoices.json'
       end
 
+      # rubocop:disable Metrics/AbcSize, Metrics/MethodLength -- jeden hash żądania API
       def body
+        paid_cents = order.latest_payment.amount_cents
+        doc_totals = line_net_tax_gross_from_line_gross(paid_cents, 23)
+
         {
           send_to_ksef: false,
           invoice: {
@@ -34,7 +38,11 @@ module Invoices
             sell_date: today,
             issue_date: today,
             paid_date: today,
-            paid_price: order.latest_payment.amount_cents,
+            paid_price: paid_cents,
+            gross_price: doc_totals.fetch(:gross_cents),
+            net_price: doc_totals.fetch(:net_cents),
+            tax_price: doc_totals.fetch(:tax_cents),
+            left_to_pay: 0,
             payment_method: 'card',
             seller_signature: '',
             client_company_name: "#{order.name} #{order.surname}".strip,
@@ -47,24 +55,36 @@ module Invoices
           }
         }
       end
+      # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
       def invoice_positions
         product_lines + delivery_lines
       end
 
-      # net_price / tax_price / gross_price = sumy linii w groszach (jak Stripe: brutto jednostki × ilość).
+      # Dla qty > 1: tylko gross_price (brutto linii = Stripe) — bez net/tax na pozycji, żeby inFakt
+      # nie przeliczał netta z ceny katalogowej × ilość (różnica 1 gr względem bramki).
       def product_lines
-        order.products_orders.includes(:product).filter_map do |po|
+        order.products_orders.includes(:product).map do |po|
           product = po.product
           qty = po.product_quantity
-          next if qty <= 0
-
-          service_line_hash(
+          line_gross_cents = stripe_unit_gross_cents(product) * qty
+          base = {
             name: product.name,
             tax_symbol: product.vat_rate.to_s,
-            quantity: qty.to_s,
-            line_gross_cents: stripe_unit_gross_cents(product) * qty
-          )
+            quantity: qty,
+            unit: 'szt.'
+          }
+
+          if qty > 1
+            base.merge(gross_price: line_gross_cents)
+          else
+            amounts = line_net_tax_gross_from_line_gross(line_gross_cents, product.vat_rate)
+            base.merge(
+              net_price: amounts.fetch(:net_cents),
+              tax_price: amounts.fetch(:tax_cents),
+              gross_price: amounts.fetch(:gross_cents)
+            )
+          end
         end
       end
 
@@ -74,31 +94,19 @@ module Invoices
 
         vat_rate = details.fetch(:vat_rate)
         netto = details.fetch(:price).to_d
-        vat_mult = 1 + (BigDecimal(vat_rate.to_s) / 100)
-        gross_pln = (netto * vat_mult).round(2, :half_up)
+        gross_pln = (netto * (1 + (BigDecimal(vat_rate.to_s) / 100))).round(2, :half_up)
         line_gross_cents = (gross_pln * PLN_TO_CENTS).round(0, :half_up).to_i
+        amounts = line_net_tax_gross_from_line_gross(line_gross_cents, vat_rate)
 
-        [
-          service_line_hash(
-            name: details.fetch(:label),
-            tax_symbol: vat_rate.to_s,
-            quantity: '1',
-            line_gross_cents: line_gross_cents
-          )
-        ]
-      end
-
-      def service_line_hash(name:, tax_symbol:, quantity:, line_gross_cents:)
-        amounts = line_net_tax_gross_from_line_gross(line_gross_cents, tax_symbol.to_i)
-        {
-          name: name,
-          tax_symbol: tax_symbol,
-          quantity: quantity,
+        [{
+          name: details.fetch(:label),
+          tax_symbol: vat_rate.to_s,
+          quantity: 1,
           unit: 'szt.',
           net_price: amounts.fetch(:net_cents),
           tax_price: amounts.fetch(:tax_cents),
           gross_price: amounts.fetch(:gross_cents)
-        }
+        }]
       end
 
       def today
