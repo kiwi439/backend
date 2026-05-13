@@ -5,8 +5,6 @@ module Payments
     class CreateCheckoutSessionService
       extend Utils::CallableObject
 
-      PLN_TO_CENTS_MULTIPLIER = 100
-
       def initialize(order:)
         @order = order
       end
@@ -36,7 +34,7 @@ module Payments
             quantity: product_order.product_quantity,
             price_data: {
               currency: 'pln',
-              unit_amount: price_to_stripe_format(product.gross_price),
+              unit_amount: product.gross_price_cents,
               product_data: { name: product.name }
             }
           }
@@ -64,7 +62,7 @@ module Payments
       end
 
       def price_to_stripe_format(amount)
-        (amount.to_d * PLN_TO_CENTS_MULTIPLIER).round(0, :half_up).to_i
+        (amount.to_d * Constants::PLN_TO_CENTS_MULTIPLIER).round(0, :half_up).to_i
       end
     end
   end

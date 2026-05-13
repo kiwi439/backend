@@ -17,4 +17,8 @@ class Product < ApplicationRecord
     vat_multiplier = 1 + (BigDecimal(vat_rate.to_s) / 100)
     (netto_price * vat_multiplier).round(2, :half_up)
   end
+
+  def gross_price_cents
+    (gross_price.to_d * Constants::PLN_TO_CENTS_MULTIPLIER).round(0, :half_up).to_i
+  end
 end

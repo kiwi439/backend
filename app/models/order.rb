@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 class Order < ApplicationRecord
-  PLN_TO_CENTS_MULTIPLIER = 100.0
-
   DELIVERIES_DETAILS = [
     { method: 'in_post', price: 10.99, vat_rate: 23, label: 'Dostawa: Paczkomat InPost' },
     { method: 'dpd', price: 15.99, vat_rate: 23, label: 'Dostawa: DPD' },
@@ -40,6 +38,6 @@ class Order < ApplicationRecord
   end
 
   def total_price
-    (latest_payment&.amount_cents.to_i / PLN_TO_CENTS_MULTIPLIER)
+    (latest_payment&.amount_cents.to_i / Constants::PLN_TO_CENTS_MULTIPLIER)
   end
 end
