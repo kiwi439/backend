@@ -1,5 +1,8 @@
 # frozen_string_literal: true
 
+# TODO: Usunac zapis na S3 faktury - zamiast tego pobierana z Infaktu
+# TODO: Nowy model - Invoice, tam trzymać tez uuid itp
+
 module Invoices
   module Infakt
     class CreateInvoiceService < BaseService
@@ -11,8 +14,16 @@ module Invoices
 
       attr_reader :order
 
+      def http_method
+        :post
+      end
+
+      def headers
+        super.merge({ 'Content-Type' => 'application/json; charset=utf-8', 'Accept' => 'application/json' })
+      end
+
       def resource_path
-        'api/v3/async/invoices.json'
+        'api/v3/invoices.json'
       end
 
       def body

@@ -28,5 +28,9 @@ module Types
     field :orders,
           resolver: Queries::OrdersQuery,
           description: 'Returns orders connection. Supports filtering by user_id. Uses Relay Connections for pagination (first/after, last/before)'
+
+    field :invoice_pdf,
+          resolver: Queries::InvoicePdfQuery,
+          description: 'Returns Infakt invoice PDF as Base64 for the authenticated user'
   end
 end
