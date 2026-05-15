@@ -1,0 +1,49 @@
+---
+alwaysApply: true
+---
+
+# Service object guidelines
+
+## Class structure
+- A service has **one public method** — `#call`.
+- All other logic lives in **private** methods.
+- Place the class in a **domain-grouping module**, e.g. `Orders::SubmitOrderService`, `Invoices::Infakt::CreateInvoiceService`.
+
+## Invocation
+- On the class: `extend Utils::CallableObject` (`lib/utils/callable_object.rb`).
+- Usage: `SomeModule::SomeService.call(...)` instead of `SomeService.new(...).call`.
+
+## Operation status (no exceptions from the service)
+- `include ServiceStatus` (`app/services/concerns/service_status.rb`).
+- **Do not raise** from `#call` as the primary error mechanism — return a result and signal status via `success?` / `errors`.
+- On failure: append to `errors` (e.g. private `handle_error`) and return `nil` or another agreed-upon “empty” result.
+- Callers check `service.success?` and optionally `service.errors`.
+
+## Pattern
+
+```ruby
+module Orders
+  class ExampleService
+    extend Utils::CallableObject
+    include ServiceStatus
+
+    def initialize(order:)
+      @order = order
+    end
+
+    def call
+      result = do_work
+      result
+    rescue StandardError => e
+      handle_error(e.message)
+    end
+
+    private
+
+    def handle_error(message)
+      errors << message
+      nil
+    end
+  end
+end
+```
