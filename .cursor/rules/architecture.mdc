@@ -1,0 +1,44 @@
+---
+alwaysApply: true
+---
+
+# Backend architecture
+
+Rails API consumed by the frontend via **GraphQL**. Keep layers thin; put business logic in **service objects**. Follow **KISS** and **YAGNI** — no extra abstractions or features until they are needed.
+
+## Layers
+
+### GraphQL (`app/graphql`) — public API
+- Entry point for the app: `POST /graphql` → `GraphqlController`.
+- **Queries** and **mutations** expose the contract to clients.
+- Resolvers stay **thin**: load context, call a service, map result/errors to GraphQL types.
+- Types, enums, and inputs live under `app/graphql/types` and related folders.
+
+### Services (`app/services`) — business logic
+- All non-trivial workflows belong here (orders, payments, invoices, users, etc.).
+- See `services.mdc` for how to implement services (`#call`, `CallableObject`, `ServiceStatus`).
+
+### Models (`app/models`) — data and domain constraints
+- Active Record: associations, validations, simple query attributes methods.
+- **No** multi-step business flows, external API calls, or orchestration in models.
+
+### Controllers (`app/controllers`) — HTTP edges only
+- Default: only `GraphqlController` serves application traffic.
+- Controllers parse the request, delegate, and render — **no business logic**.
+- **Exceptions** (non-GraphQL HTTP), e.g.:
+  - `Payments::StripeController#update_status` — Stripe webhooks (cannot use GraphQL).
+  - Mounted tools: Sidekiq Web, GraphiQL (development).
+
+## Principles
+
+- **KISS**: prefer the simplest design that solves the current requirement.
+- **YAGNI**: do not add layers, gems, or indirection for hypothetical future needs.
+- Prefer extending an existing service or query over introducing a new pattern.
+- One obvious place per concern (GraphQL = API, services = logic, models = persistence rules).
+
+## Avoid
+
+- Business logic in resolvers, controllers, or models.
+- New REST endpoints for features that belong in GraphQL (unless an external system requires a dedicated HTTP contract, like webhooks).
+- Fat models or services that mix unrelated domains.
+- Raising exceptions from services as the primary error path (use `ServiceStatus`; see `services.mdc`).
