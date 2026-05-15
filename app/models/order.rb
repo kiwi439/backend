@@ -12,6 +12,7 @@ class Order < ApplicationRecord
   belongs_to :user
   has_many :products_orders, dependent: :destroy
   has_many :payments, dependent: :destroy
+  has_one :invoice, dependent: :destroy
 
   validates :name, presence: true
   validates :surname, presence: true

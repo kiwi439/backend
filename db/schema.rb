@@ -10,10 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2026_05_09_120000) do
+ActiveRecord::Schema[7.1].define(version: 2026_05_15_120000) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
   enable_extension "plpgsql"
+
+  create_table "invoices", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "order_id", null: false
+    t.string "provider_name", null: false
+    t.string "external_uuid", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["external_uuid"], name: "index_invoices_on_external_uuid", unique: true
+    t.index ["order_id"], name: "index_invoices_on_order_id", unique: true
+  end
 
   create_table "newsletters", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "email", null: false
@@ -131,6 +141,7 @@ ActiveRecord::Schema[7.1].define(version: 2026_05_09_120000) do
     t.check_constraint "length(surname::text) > 0", name: "surname_length_check"
   end
 
+  add_foreign_key "invoices", "orders"
   add_foreign_key "opinions", "users"
   add_foreign_key "orders", "users"
   add_foreign_key "orders", "users", name: "orders_user_id_fkey"
