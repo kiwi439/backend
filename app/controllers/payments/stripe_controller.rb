@@ -32,16 +32,16 @@ module Payments
         payment = Payment.where(provider: 'stripe').find_by!("provider_data ->> ? = ?", 'checkout_session_id', session.id)
         payment.expired!
       else
-        raise StandardError.new('Unsupported event type!')
+        Rollbar.error('Unsupported event type!', event_type: event.type) # TODO: Custom Rollbar error
       end
     end
 
     def create_invoice(order)
       service = Invoices::Infakt::CreateInvoiceService.new(order:)
-      service.call
-      return if service.success?
+      response = service.call
+      return Rollbar.error(service.errors) unless service.success? # TODO: Custom Rollbar error
 
-      Rollbar.error(service.errors)
+      order.invoice.create!(provider_name: Invoice::INFAKT_PROVIDER_NAME, external_uuid: response['uuid'])
     end
   end
 end
