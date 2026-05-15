@@ -31,6 +31,6 @@ module Types
 
     field :invoice_pdf,
           resolver: Queries::InvoicePdfQuery,
-          description: 'Returns Infakt invoice PDF as Base64 for the authenticated user'
+          description: 'Returns Infakt invoice PDF as Base64 for the user'
   end
 end
