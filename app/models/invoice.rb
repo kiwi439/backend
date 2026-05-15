@@ -2,7 +2,7 @@
 
 class Invoice < ApplicationRecord
   INFAKT_PROVIDER = 'infakt'.freeze
-  ALLOWED_PROVIDERS = [INFAKT_PROVIDER_NAME].freeze
+  ALLOWED_PROVIDERS = [INFAKT_PROVIDER].freeze
 
   belongs_to :order
 

@@ -41,7 +41,7 @@ module Payments
       response = service.call
       return Rollbar.error(service.errors) unless service.success? # TODO: Custom Rollbar error
 
-      order.invoice.create!(provider_name: Invoice::INFAKT_PROVIDER_NAME, external_uuid: response['uuid'])
+      Invoice.create!(order:, provider_name: Invoice::INFAKT_PROVIDER, external_uuid: response['uuid'])
     end
   end
 end
