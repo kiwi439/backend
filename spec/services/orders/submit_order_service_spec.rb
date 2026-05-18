@@ -34,7 +34,6 @@ describe Orders::SubmitOrderService, type: :service do
     end
 
     before do
-      allow(Orders::UploadInvoiceToStorageService).to receive(:call).and_return(true)
       allow(OrderMailer).to receive(:with).and_return(OrderMailer)
       allow(OrderMailer).to receive(:order_created).and_return(message_delivery)
       allow(message_delivery).to receive(:deliver_later).and_return(true)
@@ -76,11 +75,6 @@ describe Orders::SubmitOrderService, type: :service do
         })
       end
 
-      it 'uploads invoice to storage' do
-        expect(Orders::UploadInvoiceToStorageService).to receive(:call).with(order: instance_of(Order))
-        subject
-      end
-
       it 'sends order created email' do
         expect(OrderMailer).to receive(:with).with(order: instance_of(Order))
         expect(OrderMailer).to receive(:order_created)
@@ -112,11 +106,6 @@ describe Orders::SubmitOrderService, type: :service do
 
         it 'does not update product quantity' do
           expect { subject rescue nil }.not_to change { product.reload.available_quantity }
-        end
-
-        it 'does not upload invoice' do
-          expect(Orders::UploadInvoiceToStorageService).not_to receive(:call)
-          subject rescue nil
         end
 
         it 'does not send email' do

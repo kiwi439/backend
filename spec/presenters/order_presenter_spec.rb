@@ -13,24 +13,6 @@ describe OrderPresenter do
     end
   end
 
-  describe '#invoice_details' do
-    subject { described_class.new(order).invoice_details }
-
-    let(:user) { create(:user, email: 'test@example.com') }
-    let(:order) { create(:order, user: user) }
-
-    before do
-      order.update!(created_at: Time.parse('2025-01-15 14:30:45'))
-    end
-
-    it 'returns invoice details array' do
-      expect(subject).to eq([
-        { field: 'Numer faktury:', value: order.id },
-        { field: 'Data wystawienia', value: '2025-01-15 14-30-45' }
-      ])
-    end
-  end
-
   describe '#bill_to_details' do
     subject { described_class.new(order).bill_to_details }
 

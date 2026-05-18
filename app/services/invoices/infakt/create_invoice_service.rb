@@ -1,8 +1,5 @@
 # frozen_string_literal: true
 
-# TODO: Usunac zapis na S3 faktury - zamiast tego pobierana z Infaktu
-# TODO: Nowy model - Invoice, tam trzymać tez uuid itp
-
 module Invoices
   module Infakt
     class CreateInvoiceService < BaseService

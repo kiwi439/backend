@@ -27,13 +27,6 @@ class OrderPresenter
     ]
   end
 
-  def invoice_details
-    [
-      { field: 'Numer faktury:', value: @order.id },
-      { field: 'Data wystawienia', value: @order.created_at.strftime('%Y-%m-%d %H-%M-%S') }
-    ]
-  end
-
   def bill_to_details
     [
       { field: 'Nabywca:', value: "#{@order.name} #{@order.surname}" },

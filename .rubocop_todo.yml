@@ -307,7 +307,6 @@ RSpec/StubbedMock:
   Exclude:
     - 'spec/lib/services/stream_platform/publish_service_spec.rb'
     - 'spec/lib/tasks/send_newsletter_spec.rb'
-    - 'spec/services/orders/upload_invoice_to_storage_service_spec.rb'
     - 'spec/services/users/remove_user_service_spec.rb'
 
 # Offense count: 4
