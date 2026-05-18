@@ -27,3 +27,5 @@ alwaysApply: true
 ## Anti-patterns
 - Do not test private methods.
 - Test behavior and contracts, not implementation details.
+- Do not create test database setup using direct model - use factoryBot instead
+
