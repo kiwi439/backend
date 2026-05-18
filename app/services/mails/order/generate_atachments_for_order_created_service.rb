@@ -1,7 +1,9 @@
+# frozen_string_literal: true
+
 module Mails
   module Order
     class GenerateAtachmentsForOrderCreatedService
-      extend Utils::CallableObject
+      include ServiceStatus
 
       def initialize(order:)
         @order = order
@@ -9,16 +11,23 @@ module Mails
 
       def call
         attachments = []
-        attachments << { file_name: 'Faktura.pdf', content: invoice }
+        attachments << { file_name: 'Faktura.pdf', content: invoice_as_binary }
         attachments
+      rescue StandardError => e
+        errors << e.message
+        []
       end
 
       private
 
-      def invoice
-        invoice_key = "users/#{@order.user.id}/invoices/#{@order.id}.pdf"
-        object = ::Services::Aws::S3Service.new.get_object(key: invoice_key)
-        object.body.string
+      attr_reader :order
+
+      def invoice_as_binary
+        service = Invoices::Infakt::FetchInvoiceService.new(order.invoice.external_uuid)
+        response = service.call
+        return response if service.success?
+
+        raise "Fetching invoice PDF from Infakt failed: #{service.errors.join(', ')}"
       end
     end
   end

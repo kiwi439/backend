@@ -1,5 +1,8 @@
 # frozen_string_literal: true
 
+# TODO: Formularz z wypelnianiem danych klienta zle dziala - dla zalogowanego usera nadal ciagnie z LocalStorage
+# TODO: Po co mi pole "payment_method" na modelu skoro mam relacje do Payment?
+
 module Orders
   class SubmitOrderService
     extend Utils::CallableObject
@@ -11,7 +14,6 @@ module Orders
 
     def call
       order = create_order
-      send_order_created_email(order: order)
       session = create_stripe_checkout_session(order: order)
       create_payment(order: order, session: session)
       session.url
@@ -41,10 +43,6 @@ module Orders
 
         product.update!(available_quantity: actual_quantity)
       end
-    end
-
-    def send_order_created_email(order:)
-      OrderMailer.with(order: order).order_created.deliver_later(queue: :order)
     end
 
     def create_stripe_checkout_session(order:)

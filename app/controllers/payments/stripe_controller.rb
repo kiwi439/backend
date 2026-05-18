@@ -25,23 +25,37 @@ module Payments
       case event.type
       when 'checkout.session.completed'
         payment = Payment.where(provider: 'stripe').find_by!("provider_data ->> ? = ?", 'checkout_session_id', session.id)
+        order = payment.order
         status = Payment::STRIPE_STATUS_MAPPING.fetch(session.payment_status)
+
         payment.update!(status: status)
-        create_invoice(payment.order)
+        invoice_created_successfully = create_invoice(order)
+        return unless invoice_created_successfully
+
+        send_order_created_email(order)
       when 'checkout.session.expired'
         payment = Payment.where(provider: 'stripe').find_by!("provider_data ->> ? = ?", 'checkout_session_id', session.id)
         payment.expired!
       else
-        Rollbar.error('Unsupported event type!', event_type: event.type) # TODO: Custom Rollbar error
+        Rollbar.error('Unsupported event type!', event_type: event.type)
       end
     end
 
     def create_invoice(order)
       service = Invoices::Infakt::CreateInvoiceService.new(order:)
       response = service.call
-      return Rollbar.error(service.errors) unless service.success? # TODO: Custom Rollbar error
+
+      if service.errors.any?
+        Rollbar.error(service.errors.join(', '))
+        return false
+      end
 
       Invoice.create!(order:, provider_name: Invoice::INFAKT_PROVIDER, external_uuid: response['uuid'])
+      true
+    end
+
+    def send_order_created_email(order)
+      OrderMailer.with(order: order).order_created.deliver_later(queue: :order)
     end
   end
 end

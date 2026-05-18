@@ -259,8 +259,6 @@ RSpec/ExpectChange:
 RSpec/IndexedLet:
   Exclude:
     - 'spec/lib/tasks/send_newsletter_spec.rb'
-    - 'spec/presenters/order_presenter_spec.rb'
-    - 'spec/services/orders/calculate_total_price_service_spec.rb'
     - 'spec/services/payments/stripe/create_checkout_session_service_spec.rb'
 
 # Offense count: 75
@@ -443,7 +441,6 @@ Rails/TimeZone:
     - 'app/models/product.rb'
     - 'spec/factories/product_factory.rb'
     - 'spec/models/product_spec.rb'
-    - 'spec/presenters/order_presenter_spec.rb'
 
 # Offense count: 1
 # Configuration parameters: TransactionMethods.

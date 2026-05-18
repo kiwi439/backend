@@ -4,7 +4,6 @@ describe Orders::SubmitOrderService, type: :service do
 
     let(:user) { create(:user) }
     let(:product) { create(:product, available_quantity: 10) }
-    let(:message_delivery) { instance_double(ActionMailer::MessageDelivery) }
     let(:session) do
       double('Stripe::Checkout::Session', id: 'cs_test_123',
                                           amount_total: 53597,
@@ -34,9 +33,6 @@ describe Orders::SubmitOrderService, type: :service do
     end
 
     before do
-      allow(OrderMailer).to receive(:with).and_return(OrderMailer)
-      allow(OrderMailer).to receive(:order_created).and_return(message_delivery)
-      allow(message_delivery).to receive(:deliver_later).and_return(true)
       allow(Payments::Stripe::CreateCheckoutSessionService).to receive(:call).and_return(session)
     end
 
@@ -75,13 +71,6 @@ describe Orders::SubmitOrderService, type: :service do
         })
       end
 
-      it 'sends order created email' do
-        expect(OrderMailer).to receive(:with).with(order: instance_of(Order))
-        expect(OrderMailer).to receive(:order_created)
-        expect(message_delivery).to receive(:deliver_later).with(queue: :order)
-        subject
-      end
-
       it 'returns checkout session url' do
         result = subject
         expect(result).to eq('https://checkout.stripe.com/c/pay/cs_test_123')
@@ -106,11 +95,6 @@ describe Orders::SubmitOrderService, type: :service do
 
         it 'does not update product quantity' do
           expect { subject rescue nil }.not_to change { product.reload.available_quantity }
-        end
-
-        it 'does not send email' do
-          expect(OrderMailer).not_to receive(:with)
-          subject rescue nil
         end
       end
 

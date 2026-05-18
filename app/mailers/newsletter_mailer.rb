@@ -3,7 +3,10 @@ class NewsletterMailer < ApplicationMailer
 
   def send_newsletter
     @newsletter = params.fetch(:newsletter)
-    attach_attachments(attachments_data_generator: ::Mails::Newsletter::GenerateAtachmentsForSendNewsletterService.new)
-    send_email(recipient_email: @newsletter.email, title: SEND_NEWSLETTER_TITLE)
+    service = Mails::Newsletter::GenerateAtachmentsForSendNewsletterService.new
+    files = service.call
+
+    attach_files(files)
+    mail(to: @newsletter.email, subject: SEND_NEWSLETTER_TITLE)
   end
 end
