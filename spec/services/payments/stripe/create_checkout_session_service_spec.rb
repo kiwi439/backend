@@ -28,7 +28,7 @@ describe Payments::Stripe::CreateCheckoutSessionService, type: :service do
               quantity: 2,
               price_data: {
                 currency: 'pln',
-                unit_amount: 17_499,
+                unit_amount: 21_524,
                 product_data: { name: 'Grunt' }
               }
             },
@@ -36,7 +36,7 @@ describe Payments::Stripe::CreateCheckoutSessionService, type: :service do
               quantity: 1,
               price_data: {
                 currency: 'pln',
-                unit_amount: 1_230,
+                unit_amount: 1_513,
                 product_data: { name: 'Klej' }
               }
             },
@@ -44,7 +44,7 @@ describe Payments::Stripe::CreateCheckoutSessionService, type: :service do
               quantity: 1,
               price_data: {
                 currency: 'pln',
-                unit_amount: 1_099,
+                unit_amount: 1_352,
                 product_data: { name: 'Dostawa: Paczkomat InPost' }
               }
             }
@@ -71,7 +71,7 @@ describe Payments::Stripe::CreateCheckoutSessionService, type: :service do
             quantity: 2,
             price_data: {
               currency: 'pln',
-              unit_amount: 17_499,
+              unit_amount: 21_524,
               product_data: { name: 'Grunt' }
             }
           },
@@ -79,7 +79,7 @@ describe Payments::Stripe::CreateCheckoutSessionService, type: :service do
             quantity: 1,
             price_data: {
               currency: 'pln',
-              unit_amount: 1_230,
+              unit_amount: 1_513,
               product_data: { name: 'Klej' }
             }
           }
