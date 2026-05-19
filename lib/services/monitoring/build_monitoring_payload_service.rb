@@ -9,7 +9,7 @@ module Services
         @params = params
       end
 
-      # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+      # rubocop:disable Metrics/AbcSize
       def call
         cpu_usages = convert_string_to_hash(string: @params.fetch(:cpu_usage))
         memory_usages = convert_string_to_hash(string: @params.fetch(:mem_info))
@@ -32,7 +32,7 @@ module Services
       rescue StandardError => e
         raise BuildMonitorResourcePayloadError.new(message: e, context_data: { params: @params.to_json })
       end
-      # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
+      # rubocop:enable Metrics/AbcSize
 
       private
 
