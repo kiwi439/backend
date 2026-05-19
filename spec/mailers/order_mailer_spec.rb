@@ -3,10 +3,10 @@ describe OrderMailer, type: :mailer do
     subject { described_class.with(order: order).order_created.deliver_now }
 
     let(:order) { create(:order) }
-    let(:attachment_service) { instance_double(Mails::Order::GenerateAtachmentsForOrderCreatedService, call: [{ file_name: 'Faktura.pdf', content: 'invoice_content' }]) }
+    let(:attachment_service) { instance_double(Mails::Attachments::OrderCreatedService, call: [{ file_name: 'Faktura.pdf', content: 'invoice_content' }], errors: []) }
 
     before do
-      allow(Mails::Order::GenerateAtachmentsForOrderCreatedService).to receive(:new).and_return(attachment_service)
+      allow(Mails::Attachments::OrderCreatedService).to receive(:new).and_return(attachment_service)
     end
 
     it { expect(subject.subject).to eq('Dziękujemy za zrealizowanie zamówienia!') }

@@ -9,4 +9,9 @@ class ApplicationMailer < ActionMailer::Base
       attachments[file[:file_name]] = file[:content]
     end
   end
+
+  def handle_error(errors)
+    Rollbar.error(errors.join(', '))
+    nil
+  end
 end

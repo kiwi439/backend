@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-describe Mails::Order::GenerateAtachmentsForOrderCreatedService, type: :service do
+describe Mails::Attachments::OrderCreatedService, type: :service do
   describe '#call' do
     subject { service.call }
 
@@ -20,13 +20,13 @@ describe Mails::Order::GenerateAtachmentsForOrderCreatedService, type: :service 
         allow(fetch_service).to receive(:errors).and_return([])
       end
 
-      it 'returns invoice PDF as attachment' do
-        expect(subject).to eq([{ file_name: 'Faktura.pdf', content: response }])
-      end
-
       it 'is successful' do
         subject
         expect(service.success?).to be(true)
+      end
+
+      it 'returns invoice PDF as attachment' do
+        expect(subject).to eq([{ file_name: 'Faktura.pdf', content: 'pdf_binary_content' }])
       end
     end
 
@@ -40,6 +40,11 @@ describe Mails::Order::GenerateAtachmentsForOrderCreatedService, type: :service 
           allow(fetch_service).to receive(:errors).and_return(['API error'])
         end
 
+        it 'is not successful' do
+          subject
+          expect(service.success?).to be(false)
+        end
+
         it 'returns empty attachments' do
           expect(subject).to eq([])
         end
@@ -48,11 +53,6 @@ describe Mails::Order::GenerateAtachmentsForOrderCreatedService, type: :service 
           subject
           expect(service.errors.size).to eq(1)
           expect(service.errors.first).to eq('Fetching invoice PDF from Infakt failed: API error')
-        end
-
-        it 'is not successful' do
-          subject
-          expect(service.success?).to be(false)
         end
       end
     end

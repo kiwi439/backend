@@ -3,9 +3,9 @@ describe NewsletterMailer, type: :mailer do
     subject { described_class.with(newsletter: newsletter).send_newsletter.deliver_now }
 
     let(:newsletter) { create(:newsletter) }
-    let(:attachment_service) { instance_double(Mails::Newsletter::GenerateAtachmentsForSendNewsletterService, call: [{ file_name: 'Prezentacja budowlana.pptx', content: 'ppt_content' }]) }
+    let(:attachment_service) { instance_double(Mails::Attachments::SendNewsletterService, call: [{ file_name: 'Prezentacja budowlana.pptx', content: 'ppt_content' }]) }
 
-    before { allow(Mails::Newsletter::GenerateAtachmentsForSendNewsletterService).to receive(:new).and_return(attachment_service) }
+    before { allow(Mails::Attachments::SendNewsletterService).to receive(:new).and_return(attachment_service) }
 
     it { expect(subject.subject).to eq('Cotygodniowy newsletter!') }
     it { expect(subject.to).to eq([newsletter.email]) }
