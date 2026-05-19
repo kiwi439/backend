@@ -1,14 +1,6 @@
+# frozen_string_literal: true
+
 describe Product, type: :model do
-  subject do
-    described_class.new(
-      name: 'Stairway',
-      price: 19.99,
-      available_quantity: 10,
-      picture_key: 'images/products/roof_ accessories/grzebien_okapowy_z_kratka_wentylacyjna.jpeg',
-      picture_bucket: 'budoman-development',
-      product_category: build(:product_category)
-    )
-  end
   describe 'scopes' do
     describe '.promoted' do
       subject { described_class.promoted }
@@ -40,6 +32,18 @@ describe Product, type: :model do
     end
   end
 
+  subject do
+    described_class.new(
+      name: 'Stairway',
+      price: 19.99,
+      available_quantity: 10,
+      vat_rate: 23,
+      picture_key: 'images/products/roof_ accessories/grzebien_okapowy_z_kratka_wentylacyjna.jpeg',
+      picture_bucket: 'budoman-development',
+      product_category: build(:product_category)
+    )
+  end
+
   describe 'associations' do
     it { is_expected.to belong_to(:product_category) }
     it { is_expected.to have_many(:products_orders) }
@@ -52,5 +56,26 @@ describe Product, type: :model do
 
     it { is_expected.to validate_numericality_of(:price) }
     it { is_expected.to validate_numericality_of(:available_quantity).only_integer }
+    it { is_expected.to validate_numericality_of(:vat_rate).only_integer.is_greater_than_or_equal_to(0) }
+  end
+
+  describe '#gross_price' do
+    subject { product.gross_price }
+
+    let(:product) { create(:product, price: 50.0, vat_rate: 23) }
+
+    it 'returns gross price' do
+      expect(subject).to eq(61.5)
+    end
+  end
+
+  describe '#gross_price_cents' do
+    subject { product.gross_price_cents }
+
+    let(:product) { create(:product, price: 50.0, vat_rate: 23) }
+
+    it 'returns gross price in cents' do
+      expect(subject).to eq(6150)
+    end
   end
 end
