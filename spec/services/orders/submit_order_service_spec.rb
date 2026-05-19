@@ -20,7 +20,6 @@ describe Orders::SubmitOrderService, type: :service do
         city: 'Warsaw',
         postal_code: '00-001',
         delivery_method: 'in_post',
-        payment_method: 'stripe_payment',
         email: 'john.doe@example.com',
         user: user,
         products_order: [
@@ -108,7 +107,6 @@ describe Orders::SubmitOrderService, type: :service do
             city: 'Warsaw',
             postal_code: '00-001',
             delivery_method: 'in_post',
-            payment_method: 'stripe_payment',
             email: 'john.doe@example.com',
             user: user,
             products_order: [

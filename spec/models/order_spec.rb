@@ -11,7 +11,6 @@ describe Order, type: :model do
     it { is_expected.to validate_presence_of(:phone_number) }
 
     it { is_expected.to validate_inclusion_of(:delivery_method).in_array(Order::DELIVERIES_DETAILS.pluck(:method)) }
-    it { is_expected.to validate_inclusion_of(:payment_method).in_array(Order::ALLOWED_PAYMENT_METHOD) }
 
     it { is_expected.to allow_value('john.doe@example.com').for(:email) }
     it { is_expected.not_to allow_value('test').for(:email) }

@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 # TODO: Formularz z wypelnianiem danych klienta zle dziala - dla zalogowanego usera nadal ciagnie z LocalStorage
-# TODO: Po co mi pole "payment_method" na modelu skoro mam relacje do Payment?
 
 module Orders
   class SubmitOrderService

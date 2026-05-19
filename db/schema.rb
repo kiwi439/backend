@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2026_05_15_120000) do
+ActiveRecord::Schema[7.1].define(version: 2026_05_19_140000) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
   enable_extension "plpgsql"
@@ -56,7 +56,6 @@ ActiveRecord::Schema[7.1].define(version: 2026_05_15_120000) do
     t.string "city", null: false
     t.string "postal_code", null: false
     t.string "delivery_method", null: false
-    t.string "payment_method", null: false
     t.uuid "user_id", null: false
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
@@ -66,7 +65,6 @@ ActiveRecord::Schema[7.1].define(version: 2026_05_15_120000) do
     t.check_constraint "length(delivery_method::text) > 0", name: "delivery_method_length_check"
     t.check_constraint "length(email::text) > 0", name: "email_length_check"
     t.check_constraint "length(name::text) > 0", name: "name_length_check"
-    t.check_constraint "length(payment_method::text) > 0", name: "payment_method_length_check"
     t.check_constraint "length(phone_number::text) > 0", name: "phone_number_length_check"
     t.check_constraint "length(postal_code::text) > 0", name: "postal_code_length_check"
     t.check_constraint "length(street::text) > 0", name: "street_length_check"

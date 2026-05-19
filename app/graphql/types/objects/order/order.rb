@@ -11,7 +11,6 @@ module Types
         field :latest_payment, Types::Objects::Payment::Payment, null: true, description: 'Most recent payment attempt'
         field :name, String, null: false, description: 'Customer name'
         field :paid, Boolean, null: false, method: :paid?, description: 'Whether the order has a succeeded payment'
-        field :payment_method, Types::Enums::Order::PaymentMethodEnum, null: false, description: 'Payment method'
         field :phone_number, String, null: false, description: 'Customer phone number'
         field :postal_code, String, null: false, description: 'Delivery postal code'
         field :street, String, null: false, description: 'Delivery street address'
