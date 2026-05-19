@@ -25,8 +25,6 @@ class Order < ApplicationRecord
     DELIVERIES_DETAILS.find { |d| d.fetch(:method) == delivery_method }
   end
 
-  # TODO: Zastanowić sie nad tymi metodami i czy ja dobrze zwracam dane itd...
-
   def paid?
     payments.succeeded.any?
   end

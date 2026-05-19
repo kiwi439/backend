@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 describe Order, type: :model do
   subject { build(:order) }
 
@@ -30,6 +32,33 @@ describe Order, type: :model do
     it { is_expected.to belong_to(:user) }
     it { is_expected.to have_many(:products_orders).dependent(:destroy) }
     it { is_expected.to have_many(:payments).dependent(:destroy) }
+    it { is_expected.to have_one(:invoice).dependent(:destroy) }
+  end
+
+  describe '#delivery_details' do
+    subject { order.delivery_details }
+
+    context 'when delivery method is in_post' do
+      let(:order) { build(:order, delivery_method: 'in_post') }
+
+      it 'returns matching delivery details' do
+        expect(subject).to eq(
+          method: 'in_post',
+          price: 10.99,
+          vat_rate: 23,
+          label: 'Dostawa: Paczkomat InPost'
+        )
+      end
+    end
+
+    context 'when delivery method is pick_up_at_the_point' do
+      let(:order) { build(:order, delivery_method: 'pick_up_at_the_point') }
+
+      it 'returns delivery details with zero price' do
+        expect(subject.fetch(:price)).to eq(0.0)
+        expect(subject.fetch(:label)).to eq('Odbiór osobisty')
+      end
+    end
   end
 
   describe '#paid?' do
@@ -47,6 +76,38 @@ describe Order, type: :model do
       create(:payment, order: order, status: :failed)
 
       expect(subject).to be(false)
+    end
+  end
+
+  describe '#latest_payment' do
+    subject { order.latest_payment }
+
+    let(:order) { create(:order) }
+
+    it 'returns nil when order has no payments' do
+      expect(subject).to be_nil
+    end
+
+    it 'returns most recently created payment' do
+      create(:payment, order: order, amount_cents: 1000, created_at: 2.days.ago)
+      newer_payment = create(:payment, order: order, amount_cents: 2000, created_at: 1.day.ago)
+
+      expect(subject).to eq(newer_payment)
+    end
+  end
+
+  describe '#total_price' do
+    subject { order.total_price }
+
+    let(:order) { create(:order) }
+
+    it 'returns 0 when order has no payments' do
+      expect(subject).to eq(0)
+    end
+
+    it 'returns latest payment amount in PLN' do
+      create(:payment, order: order, amount_cents: 45_913)
+      expect(subject).to eq(459.13)
     end
   end
 end
