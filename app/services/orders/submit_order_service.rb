@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-# TODO: Formularz z wypelnianiem danych klienta zle dziala - dla zalogowanego usera nadal ciagnie z LocalStorage
-
 module Orders
   class SubmitOrderService
     extend Utils::CallableObject
