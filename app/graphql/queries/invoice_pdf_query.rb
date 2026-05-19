@@ -13,7 +13,7 @@ module Queries
       invoice = user.orders.find(order_id).invoice
       service = Invoices::Infakt::FetchInvoiceService.new(invoice.external_uuid)
       response = service.call
-      return { pdf_base64: Base64.strict_encode64(response) } if service.success?
+      return { pdf_base64: Base64.strict_encode64(response.body) } if service.success?
 
       raise GraphQL::ExecutionError.new(service.errors)
     end
