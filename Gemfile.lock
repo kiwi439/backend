@@ -140,6 +140,7 @@ GEM
     concurrent-ruby (1.3.4)
     connection_pool (2.4.1)
     crass (1.0.6)
+    csv (3.3.5)
     database_cleaner (2.1.0)
       database_cleaner-active_record (>= 2, < 3)
     database_cleaner-active_record (2.2.0)
@@ -167,6 +168,10 @@ GEM
       railties
     graphql (2.1.13)
       racc (~> 1.4)
+    httparty (0.22.0)
+      csv
+      mini_mime (>= 1.0.0)
+      multi_xml (>= 0.5.2)
     i18n (1.14.6)
       concurrent-ruby (~> 1.0)
     io-console (0.8.0)
@@ -202,6 +207,7 @@ GEM
     minitest (5.25.4)
     msgpack (1.7.5)
     multi_json (1.15.0)
+    multi_xml (0.6.0)
     mutex_m (0.3.0)
     net-imap (0.5.4)
       date
@@ -335,10 +341,6 @@ GEM
     rubocop-rspec (3.3.0)
       rubocop (~> 1.61)
     ruby-progressbar (1.13.0)
-    rubyXL (3.4.33)
-      nokogiri (>= 1.10.8)
-      rubyzip (>= 1.3.0)
-    rubyzip (2.3.2)
     securerandom (0.4.1)
     shoulda-matchers (6.4.0)
       activesupport (>= 5.2.0)
@@ -379,9 +381,6 @@ GEM
     websocket-driver (0.7.6)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.5)
-    wicked_pdf (2.7.0)
-      activesupport
-    wkhtmltopdf-binary (0.12.6.8)
     zeitwerk (2.6.18)
 
 PLATFORMS
@@ -407,6 +406,7 @@ DEPENDENCIES
   factory_bot_rails
   graphiql-rails
   graphql (~> 2.1.0)
+  httparty (~> 0.22.0)
   jwt (~> 2.7.1)
   listen (~> 3.8.0)
   pg (~> 1.5.3)
@@ -422,7 +422,6 @@ DEPENDENCIES
   rubocop-performance
   rubocop-rails
   rubocop-rspec
-  rubyXL (~> 3.4.25)
   shoulda-matchers
   sidekiq (~> 7.1.4)
   spring
@@ -431,8 +430,6 @@ DEPENDENCIES
   stripe (~> 13.0)
   tzinfo-data
   waterdrop (~> 2.6.7)
-  wicked_pdf (~> 2.7.0)
-  wkhtmltopdf-binary (~> 0.12.6)
 
 RUBY VERSION
    ruby 3.1.1p18

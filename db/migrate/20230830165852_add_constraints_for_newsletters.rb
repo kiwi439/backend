@@ -1,4 +1,3 @@
-# rubocop:disable Metrics/MethodLength
 class AddConstraintsForNewsletters < ActiveRecord::Migration[5.2]
   def up
     change_column_null :newsletters, :name, false
@@ -49,4 +48,3 @@ class AddConstraintsForNewsletters < ActiveRecord::Migration[5.2]
     remove_index :newsletters, :email
   end
 end
-# rubocop:enable Metrics/MethodLength

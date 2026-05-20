@@ -28,7 +28,7 @@ SSH_PUB_KEY=$(cat ~/.ssh/id_ed25519.pub) docker-compose build --no-cache # Build
 docker-compose up # App should be available on port 3333
 ```
 
-5. Follow [Stripe local webhooks](docs/stripe-local-webhooks.md) to configure the Stripe payment gateway locally
+5. Follow [guide](docs/environment-setup/stripe.md) to configure the Stripe payment gateway locally
 
 ## Code quality
 

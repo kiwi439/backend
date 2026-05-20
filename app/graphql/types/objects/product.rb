@@ -9,6 +9,7 @@ module Types
       field :picture_bucket, String, null: false, description: 'S3 bucket name for product picture'
       field :picture_key, String, null: false, description: 'S3 key for product picture'
       field :price, Float, null: false, description: 'Product price'
+      field :vat_rate, Integer, null: false, description: 'VAT rate in percent (e.g. 23)'
     end
   end
 end

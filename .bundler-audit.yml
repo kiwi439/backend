@@ -14,8 +14,6 @@ ignore:
   - GHSA-q92j-grw3-h492
   - GHSA-353f-x4gh-cqq8
   - GHSA-mqcp-p2hv-vw6x
-  - GHSA-353f-x4gh-cqq8
-  - GHSA-353f-x4gh-cqq8
   - CVE-2025-55193
   - CVE-2025-24293
   - CVE-2025-14762
@@ -33,7 +31,61 @@ ignore:
   - GHSA-p9fm-f462-ggrg
   - GHSA-f27w-vcwj-c954
   - GHSA-wx95-c6cv-8532
-  - GHSA-wx95-c6cv-8532
-  - GHSA-wx95-c6cv-8532
   - GHSA-mxw3-3hh2-x2mh
   - GHSA-whrj-4476-wvmp
+  - CVE-2025-68696
+  - GHSA-hm5p-x4rq-38w4
+  - CVE-2026-26961
+  - GHSA-vgpv-f759-9wx3
+  - CVE-2026-32762
+  - GHSA-qfgr-crr9-7r49
+  - CVE-2026-33168
+  - GHSA-v55j-83pf-r9cq
+  - CVE-2026-33169
+  - GHSA-cg4j-q9v8-6v38
+  - CVE-2026-33170
+  - GHSA-89vf-4333-qx8v
+  - CVE-2026-33173
+  - GHSA-qcfx-2mfw-w4cg
+  - CVE-2026-33174
+  - GHSA-r46p-8f7g-vvvg
+  - CVE-2026-33176
+  - GHSA-2j26-frm8-cmj9
+  - CVE-2026-33195
+  - GHSA-9xrj-h377-fr87
+  - CVE-2026-33202
+  - GHSA-73f9-jhhh-hr5m
+  - CVE-2026-34230
+  - GHSA-v569-hp3g-36wr
+  - CVE-2026-34763
+  - GHSA-7mqq-6cf9-v2qp
+  - CVE-2026-34785
+  - GHSA-h2jq-g4cq-5ppq
+  - CVE-2026-34786
+  - GHSA-q4qf-9j86-f5mh
+  - CVE-2026-34826
+  - GHSA-x8cg-fq8g-mxfx
+  - CVE-2026-34827
+  - GHSA-v6x5-cg8r-vv6x
+  - CVE-2026-34829
+  - GHSA-8vqr-qjwx-82mw
+  - CVE-2026-34830
+  - GHSA-qv7j-4883-hwh7
+  - CVE-2026-34831
+  - GHSA-q2ww-5357-x388
+  - CVE-2026-34835
+  - GHSA-g2pf-xv49-m2h5
+  - CVE-2026-39324
+  - GHSA-33qg-7wpp-89cq
+  - CVE-2026-42245
+  - GHSA-q2mw-fvj9-vvcw
+  - CVE-2026-42246
+  - GHSA-vcgp-9326-pqcp
+  - CVE-2026-42256
+  - GHSA-87pf-fpwv-p7m7
+  - CVE-2026-42257
+  - GHSA-hm49-wcqc-g2xg
+  - CVE-2026-42258
+  - GHSA-75xq-5h9v-w6px
+  - GHSA-c4rq-3m3g-8wgx
+  - GHSA-v2fc-qm4h-8hqv

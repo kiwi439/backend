@@ -11,8 +11,6 @@ module Orders
 
     def call
       order = create_order
-      upload_invoice_to_storage(order: order)
-      send_order_created_email(order: order)
       session = create_stripe_checkout_session(order: order)
       create_payment(order: order, session: session)
       session.url
@@ -42,14 +40,6 @@ module Orders
 
         product.update!(available_quantity: actual_quantity)
       end
-    end
-
-    def upload_invoice_to_storage(order:)
-      ::Orders::UploadInvoiceToStorageService.call(order: order)
-    end
-
-    def send_order_created_email(order:)
-      OrderMailer.with(order: order).order_created.deliver_later(queue: :order)
     end
 
     def create_stripe_checkout_session(order:)

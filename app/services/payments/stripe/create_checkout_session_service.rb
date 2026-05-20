@@ -5,8 +5,6 @@ module Payments
     class CreateCheckoutSessionService
       extend Utils::CallableObject
 
-      PLN_TO_CENTS_MULTIPLIER = 100
-
       def initialize(order:)
         @order = order
       end
@@ -31,11 +29,12 @@ module Payments
       def product_line_items
         @order.products_orders.includes(:product).map do |product_order|
           product = product_order.product
+
           {
             quantity: product_order.product_quantity,
             price_data: {
               currency: 'pln',
-              unit_amount: price_to_stripe_format(product.price),
+              unit_amount: product.gross_price_cents,
               product_data: { name: product.name }
             }
           }
@@ -43,23 +42,27 @@ module Payments
       end
 
       def delivery_line_item
-        delivery_details = Order::DELIVERIES_DETAILS.find { |d| d[:method] == @order.delivery_method }
+        delivery_details = @order.delivery_details
         return [] if delivery_details.fetch(:price).to_d.zero?
+
+        vat_multiplier = 1 + (BigDecimal(delivery_details.fetch(:vat_rate).to_s) / 100)
+        netto_price = delivery_details.fetch(:price).to_d
+        gross_price = (netto_price * vat_multiplier).round(2, :half_up)
 
         [
           {
             quantity: 1,
             price_data: {
               currency: 'pln',
-              unit_amount: price_to_stripe_format(delivery_details.fetch(:price)),
+              unit_amount: price_to_stripe_format(gross_price),
               product_data: { name: delivery_details.fetch(:label) }
             }
           }
         ]
       end
 
-      def price_to_stripe_format(price)
-        (price.to_d * PLN_TO_CENTS_MULTIPLIER).round(0, :half_up).to_i
+      def price_to_stripe_format(amount)
+        (amount.to_d * Constants::PLN_TO_CENTS_MULTIPLIER).round(0, :half_up).to_i
       end
     end
   end

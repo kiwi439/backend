@@ -1,0 +1,31 @@
+---
+alwaysApply: true
+---
+
+# RSpec testing guidelines
+- After generating or changing tests, run them and ensure they pass.
+- Do not create too many contexts that assert the same thing.
+- Use helpers defined in `spec/support`.
+
+## Structure
+- Use `describe` for a method or action (e.g. `describe "#call"` or `describe "GET /orders"`).
+- Use `context` for scenarios (e.g. "success path", "failure path").
+
+## subject
+- Define `subject` inside `describe`:
+  - service: `subject { described_class.new(...).call }`
+  - request: `subject { get :show, params: params }`
+
+## Assertions and HTTP status
+- In request specs, use `have_http_status(:not_found)` instead of comparing to `404`.
+
+## Doubles / mocks
+- Use `instance_double` instead of loose `double` or `spy`.
+- Avoid `allow_any_instance_of`. If necessary, justify it in a comment.
+- Avoid `receive_message_chain`. If necessary, justify it in a comment.
+
+## Anti-patterns
+- Do not test private methods.
+- Test behavior and contracts, not implementation details.
+- Do not create test database setup using direct model - use factoryBot instead
+

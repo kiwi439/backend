@@ -9,7 +9,6 @@ module Types
           argument :delivery_method, Types::Enums::Order::DeliveryMethodEnum, required: true
           argument :email, String, required: true
           argument :name, String, required: true
-          argument :payment_method, Types::Enums::Order::PaymentMethodEnum, required: true
           argument :phone_number, String, required: true
           argument :postal_code, String, required: true
           argument :products_order, [ProductsOrderInput], required: true

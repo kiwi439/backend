@@ -4,11 +4,13 @@ module Payments
   class StripeController < ApplicationController
     def update_status
       event = verify_event
-      handle_event(event)
-      head :ok
+      service = Payments::Stripe::HandleWebhookService.new(event: event)
+      service.call
+      return head :ok if service.success?
+
+      handle_error(service.errors.join(', '))
     rescue StandardError => e
-      Rollbar.error(e)
-      head :unprocessable_entity
+      handle_error(e)
     end
 
     private
@@ -19,20 +21,9 @@ module Payments
       ::Stripe::Webhook.construct_event(payload, signature, ENV.fetch('STRIPE_WEBHOOK_SIGNING_SECRET'))
     end
 
-    def handle_event(event)
-      session = event.data.object
-
-      case event.type
-      when 'checkout.session.completed'
-        payment = Payment.where(provider: 'stripe').find_by!("provider_data ->> ? = ?", 'checkout_session_id', session.id)
-        status = Payment::STRIPE_STATUS_MAPPING.fetch(session.payment_status)
-        payment.update!(status: status)
-      when 'checkout.session.expired'
-        payment = Payment.where(provider: 'stripe').find_by!("provider_data ->> ? = ?", 'checkout_session_id', session.id)
-        payment.expired!
-      else
-        raise StandardError.new('Unsupported event type!')
-      end
+    def handle_error(error)
+      Rollbar.error(error)
+      head :unprocessable_entity
     end
   end
 end

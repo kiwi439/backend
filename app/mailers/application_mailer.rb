@@ -4,17 +4,14 @@ class ApplicationMailer < ActionMailer::Base
 
   private
 
-  def send_email(recipient_email:, title:)
-    mail(to: recipient_email, subject: title)
+  def attach_files(files)
+    files.each do |file|
+      attachments[file[:file_name]] = file[:content]
+    end
   end
 
-  def attach_attachments(attachments_data_generator:)
-    attachments_datas = attachments_data_generator.call
-    attachments_datas.each do |attachment_data|
-      file_name = attachment_data.fetch(:file_name)
-      file_content = attachment_data.fetch(:content)
-
-      attachments[file_name] = file_content
-    end
+  def handle_error(errors)
+    Rollbar.error(errors.join(', '))
+    nil
   end
 end

@@ -1,0 +1,41 @@
+---
+alwaysApply: false
+---
+# Business flow documentation
+
+Use this rule **only when the user explicitly asks** to document a business flow (e.g. “document the checkout flow”).
+
+## Output location
+
+- Markdown files under `docs/flows/`.
+- File name: short kebab-case slug, e.g. `order-checkout.md`.
+- If a doc for the same process already exists, **update** it instead of adding a duplicate.
+
+## How to write
+
+- Describe the flow from a **business** point of view.
+- **Do not** describe implementation: no class names, method names, GraphQL operation names, file paths, env vars, or request/response shapes.
+- **Do not** paste code blocks or configuration snippets.
+- One file = **one main business process** (not the entire application).
+- Steps must reflect the **actual** behaviour in the codebase; read relevant code before writing.
+- Keep it concise; prefer a short, accurate doc over a long one.
+- Use **KISS**: document what exists today, not future ideas.
+
+## Document template
+
+Use these sections (omit sections that do not apply):
+
+1. **Purpose** — one or two sentences: what this flow achieves.
+2. **Actors** — e.g. customer, payment provider, shop backend.
+3. **Main path (happy path)** — numbered steps in business terms.
+4. **Outcomes** — what the customer sees and what state the order/payment ends in.
+5. **Failure / edge cases** — cancelled payment, expired session, payment still pending, etc.
+
+## Example (style only)
+
+> 1. The customer completes the order form and confirms the purchase.  
+> 2. The shop registers the order and reserves stock.  
+> 3. The customer is sent to the external payment page.  
+> …
+
+Not: “`Orders::SubmitOrderService` is called with params …”.

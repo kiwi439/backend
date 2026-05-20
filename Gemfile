@@ -21,13 +21,8 @@ gem 'aws-sdk-s3', '~> 1.134'
 gem 'aws-sdk-lambda', '~> 1.113'
 # To use graphql
 gem 'graphql', '~> 2.1.0'
-# to process exel files
-gem 'rubyXL', '~> 3.4.25'
 # to generate token
 gem 'jwt', '~> 2.7.1'
-# to generate pdf
-gem 'wicked_pdf', '~> 2.7.0'
-gem 'wkhtmltopdf-binary', '~> 0.12.6'
 # to work with env variables
 gem 'dotenv-rails', '~> 2.8.1'
 # To proces async jobs
@@ -43,6 +38,8 @@ gem 'waterdrop', '~> 2.6.7'
 gem 'avro_turf', '~> 1.12.0'
 # Online payments
 gem 'stripe', '~> 13.0'
+# REST client
+gem 'httparty', '~> 0.22.0'
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]

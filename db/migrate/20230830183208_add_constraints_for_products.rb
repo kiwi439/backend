@@ -1,4 +1,3 @@
-# rubocop:disable Metrics/MethodLength
 class AddConstraintsForProducts < ActiveRecord::Migration[5.2]
   def up
     change_column_null :products, :name, false
@@ -56,4 +55,3 @@ class AddConstraintsForProducts < ActiveRecord::Migration[5.2]
     SQL
   end
 end
-# rubocop:enable Metrics/MethodLength

@@ -90,4 +90,6 @@ Rails.application.configure do
   config.action_dispatch.cookies_secure = true
 
   config.x.frontend_url = 'https://budoman.eu'
+
+  config.x.infakt_api_url = 'https://api.infakt.pl'
 end
