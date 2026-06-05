@@ -71,7 +71,7 @@ Required:
 - `RAILS_ENV=production`
 - `RAILS_MASTER_KEY` — from local `config/master.key`
 - `RAILS_LOG_TO_STDOUT=true`
-- `DATABASE_HOST`, `DATABASE_USER_NAME`, `DATABASE_PASSWORD`, `DATABASE_PORT` — from the PostgreSQL plugin
+- `DATABASE_URL` — from the PostgreSQL plugin (`${{Postgres.DATABASE_URL}}`)
 - `REDIS_URL` — from the Redis plugin (`${{Redis.REDIS_URL}}`)
 
 See `.env.sample` for the remaining application variables (AWS, Stripe, SMTP, Rollbar, Sidekiq panel).
