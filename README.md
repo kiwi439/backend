@@ -49,7 +49,34 @@ docker attach budoman-backend-app # To have access to container's session
 
 ## Deploy
 
+Production deploy runs on [Railway](https://railway.com) using [Railpack](https://docs.railway.com/reference/config-as-code#specify-the-builder) (no Docker).
+
+### Services
+
+| Service | Start command |
+| --- | --- |
+| Web | `bundle exec puma -C config/puma.rb` |
+| Worker | `bundle exec sidekiq` |
+
+Add PostgreSQL and Redis plugins in the Railway project. Set the service builder to **Railpack** (if a `Dockerfile` is present in the repo, Railway uses it by default unless Railpack is selected).
+
+### Environment variables
+
+Required:
+
+- `RAILS_ENV=production`
+- `RAILS_MASTER_KEY` — from local `config/master.key`
+- `RAILS_LOG_TO_STDOUT=true`
+- `DATABASE_HOST`, `DATABASE_USER_NAME`, `DATABASE_PASSWORD`, `DATABASE_PORT` — from the PostgreSQL plugin
+- `REDIS_URL` — from the Redis plugin (`${{Redis.REDIS_URL}}`)
+
+See `.env.sample` for the remaining application variables (AWS, Stripe, SMTP, Rollbar, Sidekiq panel).
+
+### Migrations
+
+Set pre-deploy command on the web service:
+
 ```bash
-bundle exec cap production deploy
+bundle exec rails db:prepare
 ```
 

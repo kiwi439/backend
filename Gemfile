@@ -64,17 +64,6 @@ group :development do
   gem 'rubocop-graphql', require: false
   # To detect outdated gems
   gem 'bundler-audit'
-  # To deploy application
-  gem 'capistrano', '~> 3.17', require: false
-  # To manage ruby version using rbenv
-  gem 'capistrano-rbenv', require: false
-  # To manage puma
-  gem 'capistrano3-puma', '6.0.0.beta.1', require: false
-  # To manage sidekiq
-  gem 'capistrano-sidekiq'
-  # To turn on automatically migration after deployment
-  gem 'capistrano-rails', '~> 1.6', require: false
-  gem 'capistrano-bundler', '~> 2.1', '>= 2.1.1'
 end
 
 group :test do
