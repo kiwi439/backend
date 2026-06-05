@@ -23,8 +23,6 @@ gem 'aws-sdk-lambda', '~> 1.113'
 gem 'graphql', '~> 2.1.0'
 # to generate token
 gem 'jwt', '~> 2.7.1'
-# to work with env variables
-gem 'dotenv-rails', '~> 2.8.1'
 # To proces async jobs
 gem 'sidekiq', '~> 7.1.4'
 gem 'redis', '~> 5.0.7'
@@ -45,6 +43,8 @@ gem 'httparty', '~> 0.22.0'
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 
 group :development, :test do
+  # to work with env variables
+  gem 'dotenv-rails', '~> 2.8.1'
   # debugger
   gem 'pry'
 end
@@ -64,17 +64,6 @@ group :development do
   gem 'rubocop-graphql', require: false
   # To detect outdated gems
   gem 'bundler-audit'
-  # To deploy application
-  gem 'capistrano', '~> 3.17', require: false
-  # To manage ruby version using rbenv
-  gem 'capistrano-rbenv', require: false
-  # To manage puma
-  gem 'capistrano3-puma', '6.0.0.beta.1', require: false
-  # To manage sidekiq
-  gem 'capistrano-sidekiq'
-  # To turn on automatically migration after deployment
-  gem 'capistrano-rails', '~> 1.6', require: false
-  gem 'capistrano-bundler', '~> 2.1', '>= 2.1.1'
 end
 
 group :test do

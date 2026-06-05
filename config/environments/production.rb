@@ -34,6 +34,9 @@ Rails.application.configure do
   # Store uploaded files on the local file system (see config/storage.yml for options)
   config.x.aws_bucket = 'budoman-production'
 
+  config.x.redis_url = ENV.fetch('REDIS_URL')
+  config.cache_store = :redis_cache_store, { url: config.x.redis_url }
+
   # Mount Action Cable outside main process or domain
   # config.action_cable.mount_path = nil
   # config.action_cable.url = 'wss://example.com/cable'
@@ -89,7 +92,7 @@ Rails.application.configure do
   # Use secure cookies
   config.action_dispatch.cookies_secure = true
 
-  config.x.frontend_url = 'https://budoman.eu'
+  config.x.frontend_url = 'https://budoman.siwiecmichal.com.pl'
 
   config.x.infakt_api_url = 'https://api.infakt.pl'
 end
