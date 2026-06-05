@@ -1,3 +1,5 @@
+return if Rails.env.test?
+
 raise 'AWS_ACCESS_KEY_ID not set!' if ENV['AWS_ACCESS_KEY_ID'].blank?
 raise 'AWS_SECRET_ACCESS_KEY not set!' if ENV['AWS_SECRET_ACCESS_KEY'].blank?
 raise 'STRIPE_SECRET_KEY not set!' if ENV['STRIPE_SECRET_KEY'].blank?
