@@ -41,7 +41,7 @@ module OlxBackend
     }
 
     # For async jobs
-    config.x.redis_url = ENV.fetch('REDIS_URL', 'redis://redis:6379/0')
+    config.x.redis_url = 'redis://redis:6379/0'
     config.active_job.queue_adapter = :sidekiq
     config.cache_store = :redis_cache_store, { url: config.x.redis_url }
 

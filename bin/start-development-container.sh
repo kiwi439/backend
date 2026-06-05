@@ -1,7 +1,5 @@
 #!/bin/bash
 
-export RAILS_ENV=development
-
 bundle install
 
 DB_EXISTS=$(rails runner "puts (::ActiveRecord::Base.connection_pool.with_connection(&:active?) rescue false)")
