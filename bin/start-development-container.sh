@@ -1,9 +1,9 @@
 #!/bin/bash
 
-# Install dependencies
+export RAILS_ENV=development
+
 bundle install
 
-# Setup database
 DB_EXISTS=$(rails runner "puts (::ActiveRecord::Base.connection_pool.with_connection(&:active?) rescue false)")
 
 if [ "$DB_EXISTS" = "false" ]; then
@@ -14,19 +14,12 @@ else
   rails db:migrate
 fi
 
-# Start the SSH service
 service ssh start
-
-# Start cron service
 service cron start
-
-# Start sidekiq in background
 bundle exec sidekiq &
 
-# Make sure that pid file doesn't exist
 if [ -f tmp/pids/server.pid ]; then
   rm tmp/pids/server.pid
 fi
 
-# Start main application
 bundle exec rails server -b 0.0.0.0 -p 3333
