@@ -23,8 +23,6 @@ gem 'aws-sdk-lambda', '~> 1.113'
 gem 'graphql', '~> 2.1.0'
 # to generate token
 gem 'jwt', '~> 2.7.1'
-# to work with env variables
-gem 'dotenv-rails', '~> 2.8.1'
 # To proces async jobs
 gem 'sidekiq', '~> 7.1.4'
 gem 'redis', '~> 5.0.7'
@@ -45,6 +43,8 @@ gem 'httparty', '~> 0.22.0'
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 
 group :development, :test do
+  # to work with env variables
+  gem 'dotenv-rails', '~> 2.8.1'
   # debugger
   gem 'pry'
 end
