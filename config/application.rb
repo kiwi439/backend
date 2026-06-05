@@ -35,7 +35,7 @@ module OlxBackend
       port: 587,
       domain: 'mail.google.com',
       user_name: 'siwiec.michal724@gmail.com',
-      password: ENV.fetch('SMTP_PASSWORD'),
+      password: ENV['SMTP_PASSWORD'],
       authentication: 'plain',
       enable_starttls_auto: true,
     }

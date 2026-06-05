@@ -1,5 +1,5 @@
 Rollbar.configure do |config|
-  config.access_token = ENV.fetch('ROLLBAR_ACCESS_TOKEN')
+  config.access_token = ENV['ROLLBAR_ACCESS_TOKEN']
   config.environment = Rails.env
   config.enabled = !Rails.env.test?
   config.framework = 'Rails'
