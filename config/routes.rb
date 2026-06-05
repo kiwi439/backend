@@ -2,8 +2,8 @@ require 'sidekiq/web'
 
 Rails.application.routes.draw do
   Sidekiq::Web.use(Rack::Auth::Basic) do |username, password|
-    is_valid_login = ActiveSupport::SecurityUtils.secure_compare(::Digest::SHA256.hexdigest(username), ::Digest::SHA256.hexdigest(ENV['SIDEKIQ_PANEL_LOGIN']))
-    is_valid_password = ActiveSupport::SecurityUtils.secure_compare(::Digest::SHA256.hexdigest(password), ::Digest::SHA256.hexdigest(ENV['SIDEKIQ_PANEL_PASSWORD']))
+    is_valid_login = ActiveSupport::SecurityUtils.secure_compare(::Digest::SHA256.hexdigest(username), ::Digest::SHA256.hexdigest(ENV.fetch('SIDEKIQ_PANEL_LOGIN')))
+    is_valid_password = ActiveSupport::SecurityUtils.secure_compare(::Digest::SHA256.hexdigest(password), ::Digest::SHA256.hexdigest(ENV.fetch('SIDEKIQ_PANEL_PASSWORD')))
 
     is_valid_login && is_valid_password
   end
