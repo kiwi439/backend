@@ -72,5 +72,3 @@ group :test do
   gem 'shoulda-matchers'
   gem 'database_cleaner'
 end
-
-# 4. config.hosts (Blocked host)
