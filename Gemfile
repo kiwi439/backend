@@ -72,3 +72,8 @@ group :test do
   gem 'shoulda-matchers'
   gem 'database_cleaner'
 end
+
+
+# 2. Redis na sztywno
+# 3. Nazwa bazy w database.yml
+# 4. config.hosts (Blocked host)
