@@ -7,7 +7,7 @@
 
 Rails.application.config.middleware.insert_before 0, Rack::Cors do
   allow do
-    origins 'localhost:3003', 'https://budoman.siwiecmichal.com.pl'
+    origins 'localhost:3003', 'https://frontend-production-2087.up.railway.app'
     resource '*', headers: :any, methods: [:get, :post, :patch, :put], credentials: true
   end
 end
