@@ -94,5 +94,5 @@ Rails.application.configure do
 
   config.x.frontend_url = 'https://budoman.siwiecmichal.com.pl'
 
-  config.x.infakt_api_url = 'https://api.infakt.pl'
+  config.x.infakt_api_url = 'https://api.sandbox-infakt.pl'
 end
