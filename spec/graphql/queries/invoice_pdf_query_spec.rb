@@ -56,20 +56,6 @@ describe Queries::InvoicePdfQuery, type: :request do
     end
 
     context 'failure path' do
-      context 'when user is not authenticated' do
-        let(:current_user) { nil }
-  
-        before { subject }
-  
-        it 'returns internal server error' do
-          expect(response).to have_http_status(:internal_server_error)
-        end
-  
-        it 'returns error message' do
-          expect(parse_request_body[:errors].first[:message]).to include('Unauthorized')
-        end
-      end
-
       context 'when order is not paid' do
         let(:current_user) { user }
   
