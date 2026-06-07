@@ -29,6 +29,7 @@ describe Queries::InvoicePdfQuery, type: :request do
       let(:current_user) { user }
 
       before do
+        create(:payment, order:, status: :succeeded)
         create(:invoice, order:, external_uuid:)
         allow(Invoices::Infakt::FetchInvoiceService).to receive(:new).with(external_uuid).and_return(fetch_service)
         allow(fetch_service).to receive(:call).and_return(instance_double(HTTParty::Response, body: 'pdf_binary_content'))
@@ -54,38 +55,58 @@ describe Queries::InvoicePdfQuery, type: :request do
       end
     end
 
-    context 'when user is not authenticated' do
-      let(:current_user) { nil }
-
-      before { subject }
-
-      it 'returns internal server error' do
-        expect(response).to have_http_status(:internal_server_error)
+    context 'failure path' do
+      context 'when user is not authenticated' do
+        let(:current_user) { nil }
+  
+        before { subject }
+  
+        it 'returns internal server error' do
+          expect(response).to have_http_status(:internal_server_error)
+        end
+  
+        it 'returns error message' do
+          expect(parse_request_body[:errors].first[:message]).to include('Unauthorized')
+        end
       end
 
-      it 'returns error message' do
-        expect(parse_request_body[:errors].first[:message]).to include('Unauthorized')
-      end
-    end
-
-    context 'when Infakt fetch fails' do
-      let(:current_user) { user }
-
-      before do
-        create(:invoice, order:, external_uuid:)
-        allow(Invoices::Infakt::FetchInvoiceService).to receive(:new).with(external_uuid).and_return(fetch_service)
-        allow(fetch_service).to receive(:call).and_return(nil)
-        allow(fetch_service).to receive(:success?).and_return(false)
-        allow(fetch_service).to receive(:errors).and_return(['API error'])
-        subject
-      end
-
-      it 'returns internal server error' do
-        expect(response).to have_http_status(:internal_server_error)
+      context 'when order is not paid' do
+        let(:current_user) { user }
+  
+        before do
+          create(:payment, order:, status: :pending)
+          subject
+        end
+  
+        it 'returns internal server error' do
+          expect(response).to have_http_status(:internal_server_error)
+        end
+  
+        it 'returns error message' do
+          expect(parse_request_body[:errors].first[:message]).to include('Order is not paid')
+        end
       end
 
-      it 'returns error message' do
-        expect(parse_request_body[:errors].first[:message]).to include('API error')
+      context 'when Infakt fetch fails' do
+        let(:current_user) { user }
+  
+        before do
+          create(:payment, order:, status: :succeeded)
+          create(:invoice, order:, external_uuid:)
+          allow(Invoices::Infakt::FetchInvoiceService).to receive(:new).with(external_uuid).and_return(fetch_service)
+          allow(fetch_service).to receive(:call).and_return(nil)
+          allow(fetch_service).to receive(:success?).and_return(false)
+          allow(fetch_service).to receive(:errors).and_return(['API error'])
+          subject
+        end
+  
+        it 'returns internal server error' do
+          expect(response).to have_http_status(:internal_server_error)
+        end
+  
+        it 'returns error message' do
+          expect(parse_request_body[:errors].first[:message]).to include('API error')
+        end
       end
     end
   end

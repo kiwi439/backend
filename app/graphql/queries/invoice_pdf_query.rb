@@ -10,8 +10,10 @@ module Queries
       user = context.fetch(:current_user)
       raise GraphQL::ExecutionError, 'Unauthorized' if user.blank?
 
-      invoice = user.orders.find(order_id).invoice
-      service = Invoices::Infakt::FetchInvoiceService.new(invoice.external_uuid)
+      order = user.orders.find(order_id)
+      raise GraphQL::ExecutionError, 'Order is not paid' unless order.paid?
+
+      service = Invoices::Infakt::FetchInvoiceService.new(order.invoice.external_uuid)
       response = service.call
       return { pdf_base64: Base64.strict_encode64(response.body) } if service.success?
 
