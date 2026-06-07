@@ -58,16 +58,16 @@ describe Queries::InvoicePdfQuery, type: :request do
     context 'failure path' do
       context 'when order is not paid' do
         let(:current_user) { user }
-  
+
         before do
           create(:payment, order:, status: :pending)
           subject
         end
-  
+
         it 'returns internal server error' do
           expect(response).to have_http_status(:internal_server_error)
         end
-  
+
         it 'returns error message' do
           expect(parse_request_body[:errors].first[:message]).to include('Order is not paid')
         end
@@ -75,7 +75,7 @@ describe Queries::InvoicePdfQuery, type: :request do
 
       context 'when Infakt fetch fails' do
         let(:current_user) { user }
-  
+
         before do
           create(:payment, order:, status: :succeeded)
           create(:invoice, order:, external_uuid:)
@@ -85,11 +85,11 @@ describe Queries::InvoicePdfQuery, type: :request do
           allow(fetch_service).to receive(:errors).and_return(['API error'])
           subject
         end
-  
+
         it 'returns internal server error' do
           expect(response).to have_http_status(:internal_server_error)
         end
-  
+
         it 'returns error message' do
           expect(parse_request_body[:errors].first[:message]).to include('API error')
         end
