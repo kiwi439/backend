@@ -8,9 +8,9 @@ module Queries
 
     def resolve(id:)
       user = context.fetch(:current_user)
-      return nil if user.blank?
+      return user.orders.find(id) if user.present?
 
-      user.orders.find(id)
+      Order.find(id)
     end
   end
 end

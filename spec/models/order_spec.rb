@@ -29,7 +29,7 @@ describe Order, type: :model do
   end
 
   describe 'associations' do
-    it { is_expected.to belong_to(:user) }
+    it { is_expected.to belong_to(:user).optional }
     it { is_expected.to have_many(:products_orders).dependent(:destroy) }
     it { is_expected.to have_many(:payments).dependent(:destroy) }
     it { is_expected.to have_one(:invoice).dependent(:destroy) }

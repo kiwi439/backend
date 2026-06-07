@@ -7,7 +7,7 @@ class Order < ApplicationRecord
     { method: 'pick_up_at_the_point', price: 0.0, vat_rate: 23, label: 'Odbiór osobisty' }
   ].freeze
 
-  belongs_to :user
+  belongs_to :user, optional: true
   has_many :products_orders, dependent: :destroy
   has_many :payments, dependent: :destroy
   has_one :invoice, dependent: :destroy
