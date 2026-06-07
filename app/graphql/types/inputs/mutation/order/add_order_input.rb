@@ -14,7 +14,7 @@ module Types
           argument :products_order, [ProductsOrderInput], required: true
           argument :street, String, required: true
           argument :surname, String, required: true
-          argument :user_id, ID, required: true
+          argument :user_id, ID, required: false
         end
       end
     end

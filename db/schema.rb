@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2026_05_19_140000) do
+ActiveRecord::Schema[7.1].define(version: 2026_06_07_120000) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
   enable_extension "plpgsql"
@@ -56,7 +56,7 @@ ActiveRecord::Schema[7.1].define(version: 2026_05_19_140000) do
     t.string "city", null: false
     t.string "postal_code", null: false
     t.string "delivery_method", null: false
-    t.uuid "user_id", null: false
+    t.uuid "user_id"
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
     t.string "email", null: false
